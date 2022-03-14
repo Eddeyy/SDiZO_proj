@@ -20,8 +20,8 @@ public:
     virtual void pop_back() = 0;
     virtual void push_front(T val) = 0;
     virtual void pop_front() = 0;
-    virtual void put(T val, int index) = 0;
-    virtual void erase(int index) = 0;
+    virtual void put(T val, size_t index) = 0;
+    virtual void erase(size_t index) = 0;
 
     virtual void print()
     {

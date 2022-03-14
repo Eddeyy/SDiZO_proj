@@ -12,21 +12,9 @@ class ListElement
 public:
     ListElement() = delete;
     ListElement(T val, ListElement* prev, ListElement* next);
-protected:
-    T value;
-
-    ListElement* nextElement;
-    ListElement* prevElement;
-
-    void setPrev(ListElement* const prev);
-    void setNext(ListElement* const next);
-    void setVal(const T& val);
-
-    const T& getValue();
-    ListElement* const getNext() const;
-    ListElement* const getPrev() const;
 
     ListElement& operator= (const ListElement& origin);
+    ListElement& operator= (T val);
 
     bool operator== (const ListElement& B){return this->value == B.value;};
     bool operator!= (const ListElement& B){return *this != B;};
@@ -34,6 +22,23 @@ protected:
     bool operator> (const ListElement& B){return B < *this;};
     bool operator<= (const ListElement& B){return !(*this > B);};
     bool operator>= (const ListElement& B){return !(*this < B);};
+
+    std::ostream& operator<<(std::ostream &out);
+
+    const T& getValue();
+
+    void setPrev(ListElement* const prev);
+    void setNext(ListElement* const next);
+protected:
+    T value;
+
+    ListElement* nextElement;
+    ListElement* prevElement;
+
+    void setVal(const T& val);
+
+    ListElement* const getNext() const;
+    ListElement* const getPrev() const;
 
     template<typename TT>
     friend class DynamicList;

@@ -16,10 +16,10 @@ public:
 
     void push_back(T val) override;
     void push_front(T val) override;
-    void put(T val, int index) override;
+    void put(T val, size_t index) override;
     void pop_back() override;
     void pop_front() override;
-    void erase(int index) override;
+    void erase(size_t index) override;
 
 
     T& operator[] (int index);

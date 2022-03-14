@@ -4,47 +4,29 @@
 
 int main(int argc, char* argv[])
 {
-    /*{
-        DynamicArray<float> fArray;
 
-        fArray.push_back(9.2);
-        fArray.push_back(8.8);
-        fArray.push_front(6.9);
 
-        fArray.put(7.2, 1);
+    DynamicList<int> dList;
 
-        fArray.print();
+    dList.push_back(1);
+    dList.push_back(1);
+    dList.push_back(1);
+    dList.push_back(1);
+    dList.push_back(1);
+    dList.push_back(1);
 
-        fArray.pop_back();
+//    dList.put(2,1);
 
-        fArray.print();
+    dList.push_back(9);
+    dList.push_front(82);
 
-        fArray.pop_front();
-        fArray.erase(0);
+    dList.erase(0);
 
-        fArray.print();
-        {
-            DynamicArray<float> fArray2 = fArray;
+    dList.print();
 
-            fArray2.push_back(9.9);
+    std::cout << std::endl << dList.length();
 
-            fArray2.print();
 
-            fArray = fArray2;
-        }
-
-        fArray.print();
-        std::cout << std::endl << fArray.length();
-    }*/
-
-    DynamicList<int> fList;
-
-    fList.push_back(1.6);
-    fList.push_back(2.3);
-    fList.push_front(6.9);
-    fList.push_back(5.91237);
-
-    fList.print();
 
     std::cout << "\n\nFINISHED!\n";
 

@@ -59,4 +59,22 @@ ListElement<T> &ListElement<T>::operator=(const ListElement<T> &origin)
     return *this;
 }
 
+template<typename T>
+ListElement<T> &ListElement<T>::operator=(T val)
+{
+    if(this->getValue() == val)
+        return *this;
+
+    this->value = val;
+
+    return *this;
+}
+
+template<typename T>
+std::ostream& ListElement<T>::operator<<(std::ostream &out)
+{
+    out << this->getValue();
+    return out;
+}
+
 #endif

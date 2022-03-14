@@ -4,18 +4,18 @@
 
 template<typename T>
 DynamicList<T>::DynamicList()
-: DataStruct<T>(), first{nullptr}, last{nullptr}
+: DataStruct<T>(), head{nullptr}, tail{nullptr}
 {
-
+    //constructor body
 }
 
 template<typename T>
 DynamicList<T>::~DynamicList()
 {
-    if(last!=nullptr)
+    if(tail != nullptr)
     {
-        ListElement<T>* cur = last;
-        ListElement<T>* prev = last;
+        ListElement<T>* cur = tail;
+        ListElement<T>* prev = tail;
 
         for(int i = this->num_of_elements; i > 0; i--)
         {
@@ -30,16 +30,16 @@ DynamicList<T>::~DynamicList()
 template<typename T>
 void DynamicList<T>::push_back(T val)
 {
-    auto newElement = new ListElement<T>(val, last, nullptr);
+    auto newElement = new ListElement<T>(val, tail, nullptr);
 
-    if(this->first == nullptr)
+    if(this->head == nullptr)
     {
-        this->first = newElement;
-        this->last = newElement;
+        this->head = newElement;
+        this->tail = newElement;
     }
     else
-        this->last->setNext(newElement);
-    this->last = newElement;
+        this->tail->setNext(newElement);
+    this->tail = newElement;
 
     this->num_of_elements++;
 }
@@ -47,25 +47,93 @@ void DynamicList<T>::push_back(T val)
 template<typename T>
 void DynamicList<T>::push_front(T val)
 {
+    auto newElement = new ListElement<T>(val, nullptr, head);
 
-    auto newElement = new ListElement<T>(val, nullptr, first);
-
-    if(this->first == nullptr)
+    if(this->head == nullptr)
     {
-        this->first = newElement;
-        this->last = newElement;
+        this->head = newElement;
+        this->tail = newElement;
     }
     else
-        this->first->setPrev(newElement);
-    this->first = newElement;
+        this->head->setPrev(newElement);
+    this->head = newElement;
 
     this->num_of_elements++;
 }
 
 template<typename T>
+void DynamicList<T>::put(T val, size_t index)
+{
+    if (index < 0 || index > this->num_of_elements+1)
+        throw std::out_of_range("Index out of range!");
+
+    if(index == 0)
+    {
+        auto prevHead = head;
+        this->head = new ListElement<T>(val, nullptr , this->head);
+        prevHead->setPrev(this->head);
+    }
+    else if(index == this->num_of_elements)
+    {
+        auto prevTail = tail;
+        this->tail = new ListElement<T>(val, tail, nullptr);
+        prevTail->setNext(this->tail);
+    }
+    else
+    {
+        auto prev = &(*this)[index-1], next = &(*this)[index];
+
+        prev->setNext(new ListElement<T>(val, prev, next));
+        next->setPrev(prev->getNext());
+    }
+    this->num_of_elements++;
+}
+
+template<typename T>
+void DynamicList<T>::pop_back()
+{
+    auto prev = (*this)[this->num_of_elements-1];
+    prev.setNext(nullptr);
+    delete tail;
+    tail = &prev;
+    this->num_of_elements--;
+}
+
+template<typename T>
+void DynamicList<T>::pop_front()
+{
+    auto prev = (*this)[1];
+    prev.setPrev(nullptr);
+    delete head;
+    head = &prev;
+    this->num_of_elements--;
+}
+
+template<typename T>
+void DynamicList<T>::erase(size_t index)
+{
+    auto prev = (*this)[index].getPrev();
+    auto next = (*this)[index].getNext();
+
+    delete &(*this)[index];
+
+    if(prev!=nullptr)
+        prev->setNext(next);
+    else
+        head = next;
+
+    if(next!=nullptr)
+        next->setPrev(prev);
+    else
+        tail = prev;
+
+    this->num_of_elements--;
+}
+
+template<typename T>
 void DynamicList<T>::print()
 {
-    ListElement<T>* curEl = first;
+    ListElement<T>* curEl = head;
 
     std::cout << "Elementy w Liscie:\n";
     while(curEl!=nullptr)
@@ -73,6 +141,90 @@ void DynamicList<T>::print()
         std::cout << curEl->getValue() << std::endl;
         curEl = curEl->getNext();
     }
+}
+
+template<typename T>
+const T &DynamicList<T>::operator[](int index) const
+{
+    ListElement<T>* elem;
+    if(head == nullptr)
+    {
+        throw std::invalid_argument("The list appears to be empty!");
+    }
+
+    if (index < 0 || index >= this->num_of_elements)
+        throw std::out_of_range("Index out of range!");
+
+    if(index < (this->num_of_elements-1)/2)
+    {
+        elem = head;
+        for (int i = 0; i < index; i++)
+        {
+            elem = elem->getNext();
+        }
+    }
+    else
+    {
+        elem = tail;
+        for (int i = this->num_of_elements-1; i > index; i--)
+        {
+            elem = elem->getPrev();
+        }
+    }
+        return elem->getValue();
+}
+
+template<typename T>
+ListElement<T> &DynamicList<T>::operator[](int index)
+{
+    ListElement<T>* elem;
+    if(head == nullptr)
+        throw std::invalid_argument("The list appears to be empty!");
+
+    if (index < 0 || index >= this->num_of_elements)
+        throw std::out_of_range("Index out of range!");
+
+    if(index < (this->num_of_elements-1)/2)
+    {
+        elem = head;
+        for (int i = 0; i != index; i++)
+        {
+            elem = elem->getNext();
+        }
+    }
+    else
+    {
+        elem = tail;
+        for (int i = this->num_of_elements-1; i != index; i--)
+        {
+            elem = elem->getPrev();
+        }
+    }
+
+    return *elem;
+}
+
+template<typename T>
+DynamicList<T>::DynamicList(const DynamicList<T> &origin)
+        : DynamicList()
+{
+    for(int i = 0; i < origin.num_of_elements; i++)
+    {
+        this->push_back(origin[i]);
+    }
+}
+
+template<typename T>
+DynamicList<T> &DynamicList<T>::operator=(const DynamicList &origin)
+{
+    if(this == &origin)
+        return *this;
+
+    for(int i = 0; i < origin.num_of_elements; i++)
+    {
+        this->push_back(origin[i]);
+    }
+    return *this;
 }
 
 

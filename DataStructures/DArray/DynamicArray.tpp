@@ -51,7 +51,7 @@ void DynamicArray<T>::push_front(T val)
 }
 
 template<typename T>
-void DynamicArray<T>::put(T val, int index)
+void DynamicArray<T>::put(T val, size_t index)
 {
     if (index < 0 || index > this->num_of_elements)
         throw std::out_of_range("Index out of range!");
@@ -108,9 +108,9 @@ void DynamicArray<T>::pop_front()
 }
 
 template<typename T>
-void DynamicArray<T>::erase(int index)
+void DynamicArray<T>::erase(size_t index)
 {
-    if (index > this->num_of_elements)
+    if (index < 0 || index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     T *temp = new T[this->num_of_elements - 1];
@@ -134,7 +134,7 @@ void DynamicArray<T>::erase(int index)
 template<typename T>
 T &DynamicArray<T>::operator[](const int index)
 {
-    if (index < 0 || index > this->num_of_elements)
+    if (index < 0 || index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     return this->arr[index];
