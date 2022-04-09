@@ -15,5 +15,7 @@
 #include "DataStructures/DList/DynamicList.tpp"
 #include "DataStructures/DList/ListElement.hpp"
 #include "DataStructures/DList/ListElement.tpp"
+#include "Utility/Utilities.hpp"
+#include "Utility/DataManager.hpp"
 
 #endif //SDIZO_PROJ_SDIZO_PROJ_HPP

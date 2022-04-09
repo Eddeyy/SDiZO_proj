@@ -11,6 +11,7 @@ class ListElement
 {
 public:
     ListElement() = delete;
+protected:
     ListElement(T val, ListElement* prev, ListElement* next);
 
     ListElement& operator= (const ListElement& origin);
@@ -29,7 +30,7 @@ public:
 
     void setPrev(ListElement* const prev);
     void setNext(ListElement* const next);
-protected:
+
     T value;
 
     ListElement* nextElement;

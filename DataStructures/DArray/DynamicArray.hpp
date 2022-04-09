@@ -12,15 +12,16 @@ class DynamicArray : public DataStruct<T>
 public:
 
     DynamicArray();
-    ~DynamicArray();
+    virtual ~DynamicArray();
 
     void push_back(T val) override;
     void push_front(T val) override;
-    void put(T val, size_t index) override;
+    void add(T val, size_t index) override;
     void pop_back() override;
     void pop_front() override;
     void erase(size_t index) override;
 
+    void print() override;
 
     T& operator[] (int index);
 

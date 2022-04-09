@@ -10,29 +10,30 @@ template<typename T>
 class DataStruct // abstract
 {
 protected:
-    unsigned int num_of_elements;
+    size_t num_of_elements;
     T* arr;
 public:
     DataStruct() : num_of_elements{0}
     {}
+    virtual ~DataStruct()= default;;
 
     virtual void push_back(T val) = 0;
     virtual void pop_back() = 0;
     virtual void push_front(T val) = 0;
     virtual void pop_front() = 0;
-    virtual void put(T val, size_t index) = 0;
+    virtual void add(T val, size_t index) = 0;
     virtual void erase(size_t index) = 0;
 
     virtual void print()
     {
-        std::cout << "Elements in structure:\n";
+        std::cout << "Elements in Array:\n";
         for(int i = 0; i < num_of_elements; i++)
         {
             std::cout << arr[i] << std::endl;
         }
     }
 
-    const unsigned int &length(){return num_of_elements;};
+    const size_t &length(){return num_of_elements;};
 
     DataStruct& operator= (const DataStruct&) = delete;
 };

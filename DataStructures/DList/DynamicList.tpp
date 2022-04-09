@@ -25,6 +25,7 @@ DynamicList<T>::~DynamicList()
             prev = cur;
         }
     }
+    std::cout << "DList memory freed\n";
 }
 
 template<typename T>
@@ -62,7 +63,7 @@ void DynamicList<T>::push_front(T val)
 }
 
 template<typename T>
-void DynamicList<T>::put(T val, size_t index)
+void DynamicList<T>::add(T val, size_t index)
 {
     if (index < 0 || index > this->num_of_elements+1)
         throw std::out_of_range("Index out of range!");
@@ -134,13 +135,18 @@ template<typename T>
 void DynamicList<T>::print()
 {
     ListElement<T>* curEl = head;
+    std::string result = "[ ";
 
-    std::cout << "Elementy w Liscie:\n";
+    std::cout << "Elements in List:\n";
     while(curEl!=nullptr)
     {
-        std::cout << curEl->getValue() << std::endl;
+        result += std::to_string(curEl->getValue());
+        if(curEl->getNext()!=nullptr)
+            result += ", ";
         curEl = curEl->getNext();
     }
+    result += " ]\n";
+    std::cout << result;
 }
 
 template<typename T>
@@ -155,7 +161,7 @@ const T &DynamicList<T>::operator[](int index) const
     if (index < 0 || index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
-    if(index < (this->num_of_elements-1)/2)
+    if(index < (this->num_of_elements)/2)
     {
         elem = head;
         for (int i = 0; i < index; i++)
@@ -184,7 +190,7 @@ ListElement<T> &DynamicList<T>::operator[](int index)
     if (index < 0 || index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
-    if(index < (this->num_of_elements-1)/2)
+    if(index < (this->num_of_elements)/2)
     {
         elem = head;
         for (int i = 0; i != index; i++)

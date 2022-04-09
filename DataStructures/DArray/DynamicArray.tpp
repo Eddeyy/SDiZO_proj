@@ -12,6 +12,7 @@ template<typename T>
 DynamicArray<T>::~DynamicArray()
 {
     delete[] this->arr;
+    std::cout << "DArr memory freed\n";
 }
 
 template<typename T>
@@ -51,7 +52,7 @@ void DynamicArray<T>::push_front(T val)
 }
 
 template<typename T>
-void DynamicArray<T>::put(T val, size_t index)
+void DynamicArray<T>::add(T val, size_t index)
 {
     if (index < 0 || index > this->num_of_elements)
         throw std::out_of_range("Index out of range!");
@@ -66,7 +67,7 @@ void DynamicArray<T>::put(T val, size_t index)
 
     temp[index] = val;
 
-    for (int i = index + 1; i < this->num_of_elements; i++)
+    for (size_t i = index + 1; i < this->num_of_elements; i++)
     {
         temp[i] = this->arr[i - 1];
     }
@@ -120,7 +121,7 @@ void DynamicArray<T>::erase(size_t index)
         temp[i] = this->arr[i];
     }
 
-    for (int i = index; i < this->num_of_elements - 1; i++)
+    for (size_t i = index; i < this->num_of_elements - 1; i++)
     {
         temp[i] = this->arr[i + 1];
     }
@@ -129,6 +130,21 @@ void DynamicArray<T>::erase(size_t index)
     this->num_of_elements--;
 
     this->arr = temp;
+}
+
+template <typename T>
+void DynamicArray<T>::print()
+{
+    std::cout << "Elements in Array:\n";
+    std::string result = "[ ";
+    for(int i = 0; i <this->num_of_elements; i++)
+    {
+        result += std::to_string(this->arr[i]);
+        if(i!=this->num_of_elements-1)
+            result += ", ";
+    }
+    result += " ]\n";
+    std::cout << result;
 }
 
 template<typename T>

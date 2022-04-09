@@ -4,31 +4,20 @@
 
 int main(int argc, char* argv[])
 {
+    {
+    DataManager* dMan = DataManager::getInstance("Data");
 
+    DataStruct<int>* something = dMan->loadFromFile("test.json");
 
-    DynamicList<int> dList;
+    something->print();
 
-    dList.push_back(1);
-    dList.push_back(1);
-    dList.push_back(1);
-    dList.push_back(1);
-    dList.push_back(1);
-    dList.push_back(1);
+    DataStruct<int>* something1 = dMan->loadFromFile("test1.json");
 
-//    dList.put(2,1);
+    something1->print();
 
-    dList.push_back(9);
-    dList.push_front(82);
-
-    dList.erase(0);
-
-    dList.print();
-
-    std::cout << std::endl << dList.length();
-
-
-
-    std::cout << "\n\nFINISHED!\n";
+    std::cout << "\nFINISHED!\n";
+    }
+    std::cin.get();
 
     return 0;
 }
