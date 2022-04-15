@@ -17,7 +17,9 @@ int main(int argc, char* argv[])
 
     std::cout << something1->rfind(420)->getValue() << std::endl;
 
-    //something1->rfind_el(2137)
+    //something1->rfind(2137)
+
+    std::cout << something->rfind(1)->getValue() << std::endl;
 
     std::cout << "\nFINISHED!\n";
     }

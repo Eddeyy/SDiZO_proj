@@ -9,8 +9,8 @@
 #include "../DataStructures/DataStruct.hpp"
 #include "../DataStructures/DArray/DynamicArray.hpp"
 #include "../DataStructures/DArray/DynamicArray.tpp"
-#include "../DataStructures/DList/DynamicList.hpp"
-#include "../DataStructures/DList/DynamicList.tpp"
+#include "../DataStructures/DList/DLList.hpp"
+#include "../DataStructures/DList/DLList.tpp"
 #include "Utilities.hpp"
 
 class DataManager

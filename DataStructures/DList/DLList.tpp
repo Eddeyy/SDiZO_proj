@@ -1,16 +1,16 @@
-#ifndef SDIZO_PROJ_DYNAMICLIST_TPP
-#define SDIZO_PROJ_DYNAMICLIST_TPP
-#include "DynamicList.hpp"
+#ifndef SDIZO_PROJ_DLLIST_TPP
+#define SDIZO_PROJ_DLLIST_TPP
+#include "DLList.hpp"
 
 template<typename T>
-DynamicList<T>::DynamicList()
+DLList<T>::DLList()
 : DataStruct<T>(), head{nullptr}, tail{nullptr}
 {
     //constructor body
 }
 
 template<typename T>
-DynamicList<T>::~DynamicList()
+DLList<T>::~DLList()
 {
     if(tail != nullptr)
     {
@@ -29,7 +29,7 @@ DynamicList<T>::~DynamicList()
 }
 
 template<typename T>
-void DynamicList<T>::push_back(T val)
+void DLList<T>::push_back(T val)
 {
     auto newElement = new ListElement<T>(val, tail, nullptr);
 
@@ -46,7 +46,7 @@ void DynamicList<T>::push_back(T val)
 }
 
 template<typename T>
-void DynamicList<T>::push_front(T val)
+void DLList<T>::push_front(T val)
 {
     auto newElement = new ListElement<T>(val, nullptr, head);
 
@@ -63,7 +63,7 @@ void DynamicList<T>::push_front(T val)
 }
 
 template<typename T>
-void DynamicList<T>::add(T val, size_t index)
+void DLList<T>::add(T val, size_t index)
 {
     if (index < 0 || index > this->num_of_elements+1)
         throw std::out_of_range("Index out of range!");
@@ -91,7 +91,7 @@ void DynamicList<T>::add(T val, size_t index)
 }
 
 template<typename T>
-void DynamicList<T>::pop_back()
+void DLList<T>::pop_back()
 {
     auto prev = (*this)[this->num_of_elements-1];
     prev.setNext(nullptr);
@@ -101,7 +101,7 @@ void DynamicList<T>::pop_back()
 }
 
 template<typename T>
-void DynamicList<T>::pop_front()
+void DLList<T>::pop_front()
 {
     auto prev = (*this)[1];
     prev.setPrev(nullptr);
@@ -111,7 +111,7 @@ void DynamicList<T>::pop_front()
 }
 
 template<typename T>
-void DynamicList<T>::erase(size_t index)
+void DLList<T>::erase(size_t index)
 {
     auto prev = (*this)[index].getPrev();
     auto next = (*this)[index].getNext();
@@ -132,7 +132,7 @@ void DynamicList<T>::erase(size_t index)
 }
 
 template<typename T>
-void DynamicList<T>::print()
+void DLList<T>::print()
 {
     ListElement<T>* curEl = head;
     std::string result = "[ ";
@@ -150,7 +150,7 @@ void DynamicList<T>::print()
 }
 
 template<typename T>
-const T &DynamicList<T>::operator[](int index) const
+const T &DLList<T>::operator[](int index) const
 {
     ListElement<T>* elem;
     if(head == nullptr)
@@ -181,7 +181,7 @@ const T &DynamicList<T>::operator[](int index) const
 }
 
 template<typename T>
-ListElement<T> &DynamicList<T>::operator[](int index)
+ListElement<T> &DLList<T>::operator[](int index)
 {
     ListElement<T>* elem;
     if(head == nullptr)
@@ -211,8 +211,8 @@ ListElement<T> &DynamicList<T>::operator[](int index)
 }
 
 template<typename T>
-DynamicList<T>::DynamicList(const DynamicList<T> &origin)
-        : DynamicList()
+DLList<T>::DLList(const DLList<T> &origin)
+        : DLList()
 {
     for(int i = 0; i < origin.num_of_elements; i++)
     {
@@ -221,7 +221,7 @@ DynamicList<T>::DynamicList(const DynamicList<T> &origin)
 }
 
 template<typename T>
-DynamicList<T> &DynamicList<T>::operator=(const DynamicList &origin)
+DLList<T> &DLList<T>::operator=(const DLList &origin)
 {
     if(this == &origin)
         return *this;
@@ -234,7 +234,7 @@ DynamicList<T> &DynamicList<T>::operator=(const DynamicList &origin)
 }
 
 template<typename T>
-const Element<T>* DynamicList<T>::find(const T& key)
+const Element<T>* DLList<T>::find(const T& key)
 {
     ListElement<T>* temp = this->head;
     for(int i = 0; i<this->num_of_elements; i++)
@@ -248,7 +248,7 @@ const Element<T>* DynamicList<T>::find(const T& key)
     throw std::invalid_argument("No such key in list.");
 }
 template<typename T>
-const Element<T>* DynamicList<T>::rfind(const T& key)
+const Element<T>* DLList<T>::rfind(const T& key)
 {
     ListElement<T>* temp = this->tail;
     for(int i = this->num_of_elements-1; i>0; i--)

@@ -4,7 +4,7 @@
 
 #ifndef SDIZO_PROJ_LISTELEMENT_HPP
 #define SDIZO_PROJ_LISTELEMENT_HPP
-#include "DynamicList.hpp"
+#include "DLList.hpp"
 #include "../Element.hpp"
 
 template<typename T>
@@ -28,7 +28,7 @@ protected:
     void setNext(ListElement* const next);
 
     template<typename TT>
-    friend class DynamicList;
+    friend class DLList;
 };
 
 

@@ -17,15 +17,15 @@ enable_testing()
 add_executable(SDiZO_proj main.cpp
         DataStructures/DataStruct.hpp
         DataStructures/DArray/DynamicArray.hpp
-        SDiZO_proj.hpp DataStructures/DList/DynamicList.hpp
-        DataStructures/DList/DynamicList.tpp
+        SDiZO_proj.hpp DataStructures/DList/DLList.hpp
+        DataStructures/DList/DLList.tpp
         DataStructures/DArray/DynamicArray.tpp
         DataStructures/DList/ListElement.tpp
         DataStructures/DList/ListElement.hpp
         Utility/DataManager.tpp
         Utility/DataManager.hpp
         Utility/Utilities.hpp
-        Utility/Utilities.cpp DataStructures/Element.hpp)
+        Utility/Utilities.cpp DataStructures/Element.hpp DataStructures/DArray/ArrayElement.tpp DataStructures/DArray/ArrayElement.hpp)
 
 
 #target_link_libraries(

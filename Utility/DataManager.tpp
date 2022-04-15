@@ -68,7 +68,7 @@ DataStruct<int>* DataManager::loadFromFile(const std::string& fileName)
                 if (type == "arr")
                     temp = new DynamicArray<int>();
                 else if (type == "lst")
-                    temp = new DynamicList<int>();
+                    temp = new DLList<int>();
 
                 if(temp!= nullptr)
                     for (int i = 0; i < noe_; i++)

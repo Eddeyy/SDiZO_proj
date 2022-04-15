@@ -2,22 +2,22 @@
 // Created by thero on 09.03.2022.
 //
 
-#ifndef SDIZO_PROJ_DYNAMICLIST_HPP
-#define SDIZO_PROJ_DYNAMICLIST_HPP
+#ifndef SDIZO_PROJ_DLLIST_HPP
+#define SDIZO_PROJ_DLLIST_HPP
 #include "../DataStruct.hpp"
 #include "ListElement.hpp"
 #include "ListElement.tpp"
 
 template<typename T>
-class DynamicList : public DataStruct<T>
+class DLList : public DataStruct<T>
 {
 protected:
     ListElement<T>* head;
     ListElement<T>* tail;
 
 public:
-    DynamicList();
-    virtual ~DynamicList();
+    DLList();
+    virtual ~DLList();
 
     void push_back(T val) override;
     void push_front(T val) override;
@@ -33,8 +33,8 @@ public:
     const T& operator[] (int index) const;
     ListElement<T>& operator[] (int index);
 
-    DynamicList(const DynamicList& origin);
-    DynamicList& operator= (const DynamicList& origin);
+    DLList(const DLList& origin);
+    DLList& operator= (const DLList& origin);
 
 };
-#endif //SDIZO_PROJ_DYNAMICLIST_HPP
+#endif //SDIZO_PROJ_DLLIST_HPP

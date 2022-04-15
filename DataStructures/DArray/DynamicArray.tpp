@@ -193,4 +193,31 @@ DynamicArray<T> &DynamicArray<T>::operator=(const DynamicArray &origin)
     return *this;
 }
 
+template<typename T>
+const Element<T> *DynamicArray<T>::find(const T &key)
+{
+    ArrayElement<T> *temp;
+    for(int i = 0; i<this->num_of_elements; i++)
+        if(this->arr[i]==key)
+        {
+            temp->setVal(this->arr[i]);
+            return temp;
+        }
+    throw std::invalid_argument("No such key in array.");
+}
+
+template<typename T>
+const Element<T> *DynamicArray<T>::rfind(const T &key)
+{
+    ArrayElement<T> *temp;
+    for(int i = this->num_of_elements-1; i>0; i--)
+        if(this->arr[i]==key)
+        {
+            temp->setVal(this->arr[i]);
+            return temp;
+        }
+
+    throw std::invalid_argument("No such key in array.");
+}
+
 #endif
