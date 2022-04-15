@@ -9,6 +9,7 @@
 //It's creation was mainy for clarity, and readability's sake.
 
 #include "DataStructures/DataStruct.hpp"
+#include "DataStructures/Element.hpp"
 #include "DataStructures/DArray/DynamicArray.hpp"
 #include "DataStructures/DArray/DynamicArray.tpp"
 #include "DataStructures/DList/DynamicList.hpp"

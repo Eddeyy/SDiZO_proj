@@ -22,10 +22,10 @@ add_executable(SDiZO_proj main.cpp
         DataStructures/DArray/DynamicArray.tpp
         DataStructures/DList/ListElement.tpp
         DataStructures/DList/ListElement.hpp
-        Utility/DataManager.cpp
+        Utility/DataManager.tpp
         Utility/DataManager.hpp
         Utility/Utilities.hpp
-        Utility/Utilities.cpp)
+        Utility/Utilities.cpp DataStructures/Element.hpp)
 
 
 #target_link_libraries(

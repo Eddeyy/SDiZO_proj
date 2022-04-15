@@ -31,10 +31,11 @@ DataStruct<int>* DataManager::loadFromFile(const std::string& fileName)
     if(!file.good())
         throw ut::utilityException("Could not open " + this->path + "/test.json");
 
-    int noe_ = 0;
-    std::vector<int> values;
+
     std::string type;
     std::string line;
+    int noe_;
+    std::vector<int> values;
 
     DataStruct<int>* temp = nullptr;
 

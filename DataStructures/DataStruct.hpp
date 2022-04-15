@@ -5,6 +5,7 @@
 #ifndef SDIZO_PROJ_DATASTRUCT_HPP
 #define SDIZO_PROJ_DATASTRUCT_HPP
 #include <iostream>
+#include ".//Element.hpp"
 
 template<typename T>
 class DataStruct // abstract
@@ -34,6 +35,8 @@ public:
     }
 
     const size_t &length(){return num_of_elements;};
+    virtual const Element<T> *find(const T& key) = 0;
+    virtual const Element<int> * rfind(const T& key) = 0;
 
     DataStruct& operator= (const DataStruct&) = delete;
 };

@@ -21,6 +21,9 @@ public:
     void pop_front() override;
     void erase(size_t index) override;
 
+    const Element<T> *find(const T& key) override{};
+    const Element<T> *rfind(const T& key) override{};
+
     void print() override;
 
     T& operator[] (int index);

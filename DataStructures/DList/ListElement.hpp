@@ -5,41 +5,27 @@
 #ifndef SDIZO_PROJ_LISTELEMENT_HPP
 #define SDIZO_PROJ_LISTELEMENT_HPP
 #include "DynamicList.hpp"
+#include "../Element.hpp"
 
 template<typename T>
-class ListElement
+class ListElement : public Element<T>
 {
 public:
     ListElement() = delete;
 protected:
     ListElement(T val, ListElement* prev, ListElement* next);
 
-    ListElement& operator= (const ListElement& origin);
-    ListElement& operator= (T val);
+    ListElement<T>& operator= (const Element<T>& origin) override;
+    ListElement<T>& operator= (T val) override;
 
-    bool operator== (const ListElement& B){return this->value == B.value;};
-    bool operator!= (const ListElement& B){return *this != B;};
-    bool operator< (const ListElement& B){return this->value < B.value;};
-    bool operator> (const ListElement& B){return B < *this;};
-    bool operator<= (const ListElement& B){return !(*this > B);};
-    bool operator>= (const ListElement& B){return !(*this < B);};
-
-    std::ostream& operator<<(std::ostream &out);
-
-    const T& getValue();
-
-    void setPrev(ListElement* const prev);
-    void setNext(ListElement* const next);
-
-    T value;
+    std::ostream& operator<<(std::ostream &out) override;
 
     ListElement* nextElement;
     ListElement* prevElement;
-
-    void setVal(const T& val);
-
     ListElement* const getNext() const;
     ListElement* const getPrev() const;
+    void setPrev(ListElement* const prev);
+    void setNext(ListElement* const next);
 
     template<typename TT>
     friend class DynamicList;

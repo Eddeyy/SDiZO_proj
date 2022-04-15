@@ -7,9 +7,9 @@
 
 template<typename T>
 ListElement<T>::ListElement(T val, ListElement* prev, ListElement* next) :
-nextElement{next}, prevElement{prev}, value{val}
+nextElement{next}, prevElement{prev}
 {
-    //constructor body
+    this->value = val;
 }
 
 template<typename T>
@@ -25,18 +25,6 @@ void ListElement<T>::setNext(ListElement<T>* const next)
 }
 
 template<typename T>
-void ListElement<T>::setVal(const T& val)
-{
-    this->value = val;
-}
-
-template<typename T>
-const T& ListElement<T>::getValue()
-{
-    return this->value;
-}
-
-template<typename T>
 ListElement<T>* const ListElement<T>::getNext() const
 {
     return this->nextElement;
@@ -49,7 +37,7 @@ ListElement<T>* const ListElement<T>::getPrev() const
 }
 
 template<typename T>
-ListElement<T> &ListElement<T>::operator=(const ListElement<T> &origin)
+ListElement<T> &ListElement<T>::operator=(const Element<T> &origin)
 {
     if(this == &origin)
         return *this;

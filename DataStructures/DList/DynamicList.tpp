@@ -233,5 +233,34 @@ DynamicList<T> &DynamicList<T>::operator=(const DynamicList &origin)
     return *this;
 }
 
+template<typename T>
+const Element<T>* DynamicList<T>::find(const T& key)
+{
+    ListElement<T>* temp = this->head;
+    for(int i = 0; i<this->num_of_elements; i++)
+    {
+        if(temp->getValue() == key)
+        {
+            return temp;
+        }
+        temp = temp->getNext();
+    }
+    throw std::invalid_argument("No such key in list.");
+}
+template<typename T>
+const Element<T>* DynamicList<T>::rfind(const T& key)
+{
+    ListElement<T>* temp = this->tail;
+    for(int i = this->num_of_elements-1; i>0; i--)
+    {
+        if(temp->getValue() == key)
+        {
+            return temp;
+        }
+        temp = temp->getPrev();
+    }
+    throw std::invalid_argument("No such key in list.");
+}
+
 
 #endif

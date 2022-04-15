@@ -27,6 +27,9 @@ public:
     void erase(size_t index) override;
     void print() override;
 
+    const Element<T> *find(const T& key) override;
+    const Element<T> *rfind(const T& key) override;
+
     const T& operator[] (int index) const;
     ListElement<T>& operator[] (int index);
 
