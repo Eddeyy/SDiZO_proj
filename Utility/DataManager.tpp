@@ -17,65 +17,48 @@ DataManager::DataManager(const std::string& dataDir)
 
 }
 
-void DataManager::saveToFile(const std::string &)
+template<typename T>
+void DataManager::saveToFile(const std::string & fileName, DataStruct<T>* dataStr)
 {
-//TODO implementation
+    std::fstream file;
+
+    if(!ut::is_path_exists("Data"))
+        ut::make_directory("Data");
+
+    file.open(this->path + "/" + fileName, std::ios::out);
+    if(!file.good())
+        throw ut::utilityException("Could not open " + this->path + "/" + fileName);
+
+    file << dataStr->length() << std::endl;
+    for(int i = 0; i<dataStr->length(); i++)
+    {
+        file << (*dataStr)[i] << std::endl;
+    }
+
+    file.close();
+
+    std::cout << "\nSuccessfully saved into \"" + fileName + "\" in \"" + path + "\".\n";
 }
 
 // Bruuuuh..
-DataStruct<int>* DataManager::loadFromFile(const std::string& fileName)
+template<typename T>
+std::vector<T> DataManager::loadFromFile(const std::string& fileName)
 {
     std::fstream file;
 
     file.open(this->path + "/" + fileName);
     if(!file.good())
-        throw ut::utilityException("Could not open " + this->path + "/test.json");
+        throw ut::utilityException("Could not open " + this->path + "/" + fileName);
 
-
-    std::string type;
     std::string line;
-    int noe_;
-    std::vector<int> values;
+    std::getline(file,line);
+    int noe_ = std::stoi(line);
 
-    DataStruct<int>* temp = nullptr;
+    std::vector<T> temp;
 
-    while(std::getline(file, line))
+    while(std::getline(file, line) &&noe_--)
     {
-        if(line == "{")
-        {
-            noe_ = 0;
-            values.clear();
-        }
-
-        if(line.find("type")!=std::string::npos)
-            type = line.substr(line.find(':') + 3, 3);
-
-        if(line.find("num_of_elements")!=std::string::npos)
-            noe_ = std::stoi(line.substr(line.find(':')+2, line.find(',')));
-
-        if(line.find("arr")!=std::string::npos)
-        {
-            auto curReadPos = line.find('[');
-            for(int i = 0; i<noe_; i++)
-            {
-                values.push_back(std::stoi(line.substr(curReadPos+1, line.find(',', curReadPos)-1)));
-                curReadPos = line.find(',', curReadPos+1);
-            }
-        }
-
-        if(line == "}")
-        {
-                if (type == "arr")
-                    temp = new DynamicArray<int>();
-                else if (type == "lst")
-                    temp = new DLList<int>();
-
-                if(temp!= nullptr)
-                    for (int i = 0; i < noe_; i++)
-                    {
-                        temp->push_back(values[i]);
-                    }
-        }
+        temp.push_back(std::stod(line));
     }
 
     return  temp;

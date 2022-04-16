@@ -13,6 +13,7 @@
 #include "../DataStructures/DList/DLList.tpp"
 #include "Utilities.hpp"
 
+
 class DataManager
 {
 private:
@@ -24,15 +25,14 @@ private:
     DataManager();
     explicit DataManager(const std::string& dataDir);
 
-    void saveToFile(const std::string& );
-
 public:
 
     //void saveData();
+    template<typename T>
+    std::vector<T> loadFromFile(const std::string& fileName);
     //void loadData();
-
-    DataStruct<int>* loadFromFile(const std::string& fileName);
-
+    template<typename T>
+    void saveToFile(const std::string&,DataStruct<T>*);
 
     static DataManager* getInstance(const std::string& dataDir);
 

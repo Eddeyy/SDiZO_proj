@@ -17,6 +17,7 @@ protected:
 
 public:
     DLList();
+    DLList(const std::vector<T>& vec);
     virtual ~DLList();
 
     void push_back(T val) override;
@@ -30,11 +31,12 @@ public:
     const Element<T> *find(const T& key) override;
     const Element<T> *rfind(const T& key) override;
 
-    const T& operator[] (int index) const;
+    const T& operator[] (int index) const override;
     ListElement<T>& operator[] (int index);
 
     DLList(const DLList& origin);
     DLList& operator= (const DLList& origin);
+    DLList& operator= (const std::vector<T> &array) override;
 
 };
 #endif //SDIZO_PROJ_DLLIST_HPP

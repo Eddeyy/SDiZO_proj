@@ -5,6 +5,7 @@
 #ifndef SDIZO_PROJ_DATASTRUCT_HPP
 #define SDIZO_PROJ_DATASTRUCT_HPP
 #include <iostream>
+#include <vector>
 #include ".//Element.hpp"
 
 template<typename T>
@@ -12,11 +13,11 @@ class DataStruct // abstract
 {
 protected:
     size_t num_of_elements;
-    T* arr;
+    T* arr = nullptr;
 public:
     DataStruct() : num_of_elements{0}
     {}
-    virtual ~DataStruct()= default;;
+    virtual ~DataStruct()= default;
 
     virtual void push_back(T val) = 0;
     virtual void pop_back() = 0;
@@ -38,7 +39,9 @@ public:
     virtual const Element<T> *find(const T& key) = 0;
     virtual const Element<int> * rfind(const T& key) = 0;
 
+    virtual const T& operator[] (int index) const = 0;
     DataStruct& operator= (const DataStruct&) = delete;
+    virtual DataStruct& operator= (const std::vector<T>&) = 0;
 };
 
 #endif //SDIZO_PROJ_DATASTRUCT_HPP

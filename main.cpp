@@ -1,25 +1,40 @@
 #include <iostream>
 //#include <gtest/gtest.h>
 #include "SDiZO_proj.hpp"
-#include "Utility/DataManager.tpp"
 int main(int argc, char* argv[])
 {
     {
-    DataManager* dMan = DataManager::getInstance("../Data");
+    DataManager* dMan = DataManager::getInstance("./Data");
 
-    DataStruct<int>* something = dMan->loadFromFile("test.json");
+    DynamicArray<int> something = dMan->loadFromFile<int>("testunio.txt");
 
-    something->print();
+    DataStruct<int>* sth[2];
+    sth[0] = new DLList<int>;
+    sth[1] = new DynamicArray<int>;
 
-    DataStruct<int>* something1 = dMan->loadFromFile("test1.json");
+    for(int i = 0; i <2 ; i++)
+    {
+        *sth[i] = dMan->loadFromFile<int>("test" + std::to_string(i) + ".txt");
+    }
 
-    something1->print();
+    for(auto s : sth)
+        s->print();
 
-    std::cout << something1->rfind(420)->getValue() << std::endl;
+    something.print();
+
+    DLList<int> something1 = dMan->loadFromFile<int>("test1.txt");
+
+    something1.print();
+
+    std::cout << something1.find(69)->getValue() << std::endl;
 
     //something1->rfind(2137)
 
-    std::cout << something->rfind(1)->getValue() << std::endl;
+    std::cout << something.rfind(1)->getValue() << std::endl;
+    dMan->saveToFile("testunio.txt",&something);
+
+    for(auto & i : sth)
+        delete i;
 
     std::cout << "\nFINISHED!\n";
     }

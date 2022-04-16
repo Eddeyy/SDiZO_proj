@@ -9,11 +9,18 @@ DynamicArray<T>::DynamicArray() : DataStruct<T>()
 }
 
 template<typename T>
+DynamicArray<T>::DynamicArray(const std::vector<T> &vec)
+{
+    *this = vec;
+}
+
+template<typename T>
 DynamicArray<T>::~DynamicArray()
 {
     delete[] this->arr;
     std::cout << "DArr memory freed\n";
 }
+
 
 template<typename T>
 void DynamicArray<T>::push_back(T val)
@@ -31,7 +38,6 @@ void DynamicArray<T>::push_back(T val)
 
     this->arr = temp;
 }
-
 
 template<typename T>
 void DynamicArray<T>::push_front(T val)
@@ -148,12 +154,23 @@ void DynamicArray<T>::print()
 }
 
 template<typename T>
-T &DynamicArray<T>::operator[](const int index)
+const T &DynamicArray<T>::operator[](const int index) const
 {
     if (index < 0 || index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     return this->arr[index];
+}
+
+template<typename T>
+ArrayElement<T>& DynamicArray<T>::operator[](const int index)
+{
+    ArrayElement<T> temp;
+    if (index < 0 || index >= this->num_of_elements)
+        throw std::out_of_range("Index out of range!");
+
+    temp.setVal(this->arr[index]);
+    return temp;
 }
 
 template<typename T>
@@ -193,6 +210,30 @@ DynamicArray<T> &DynamicArray<T>::operator=(const DynamicArray &origin)
     return *this;
 }
 
+
+template<typename T>
+DynamicArray<T> &DynamicArray<T>::operator= (const std::vector<T> &array)
+{
+    if(this->num_of_elements == array.size())
+        for(int i = 0; i<this->num_of_elements; i++)
+            if(this->arr[i] == array[i])
+                return *this;
+
+    this->num_of_elements = array.size();
+
+    if (this->arr != nullptr)
+        delete[] this->arr;
+
+    this->arr = new T[this->num_of_elements];
+
+    for (int i = 0; i < this->num_of_elements; i++)
+    {
+        this->arr[i] = array[i];
+    }
+
+    return *this;
+}
+
 template<typename T>
 const Element<T> *DynamicArray<T>::find(const T &key)
 {
@@ -210,7 +251,7 @@ template<typename T>
 const Element<T> *DynamicArray<T>::rfind(const T &key)
 {
     ArrayElement<T> *temp;
-    for(int i = this->num_of_elements-1; i>0; i--)
+    for(int i = this->num_of_elements-1; i>-1; i--)
         if(this->arr[i]==key)
         {
             temp->setVal(this->arr[i]);

@@ -25,7 +25,7 @@ namespace ut
 
         bool is_path_exists(const std::string& s);
         void make_directory(const std::string& s);
-        bool file_exists(std::string fileName, std::string dir);
+        bool file_exists(const std::string& fileName, const std::string& dir);
 }
 
 #endif //SDIZO_PROJ_UTILITIES_HPP

@@ -10,6 +10,13 @@ DLList<T>::DLList()
 }
 
 template<typename T>
+DLList<T>::DLList(const std::vector<T> &vec)
+: DLList<T>()
+{
+    *this = vec;
+}
+
+template<typename T>
 DLList<T>::~DLList()
 {
     if(tail != nullptr)
@@ -226,6 +233,11 @@ DLList<T> &DLList<T>::operator=(const DLList &origin)
     if(this == &origin)
         return *this;
 
+    for(int i = this->num_of_elements; i>0; i--)
+    {
+        this->pop_back();
+    }
+
     for(int i = 0; i < origin.num_of_elements; i++)
     {
         this->push_back(origin[i]);
@@ -233,6 +245,25 @@ DLList<T> &DLList<T>::operator=(const DLList &origin)
     return *this;
 }
 
+template<typename T>
+DLList<T> &DLList<T>::operator=(const std::vector<T> &array)
+{
+    if(this->num_of_elements == array.size())
+        for(int i = 0; i<this->num_of_elements; i++)
+            if((*this)[i] == array[i])
+                return *this;
+
+    for(int i = this->num_of_elements; i>0; i--)
+    {
+        this->pop_back();
+    }
+
+    for(int i = 0; i < array.size(); i++)
+    {
+        this->push_back(array[i]);
+    }
+    return *this;
+}
 template<typename T>
 const Element<T>* DLList<T>::find(const T& key)
 {
@@ -247,11 +278,12 @@ const Element<T>* DLList<T>::find(const T& key)
     }
     throw std::invalid_argument("No such key in list.");
 }
+
 template<typename T>
 const Element<T>* DLList<T>::rfind(const T& key)
 {
     ListElement<T>* temp = this->tail;
-    for(int i = this->num_of_elements-1; i>0; i--)
+    for(int i = this->num_of_elements-1; i>-1; i--)
     {
         if(temp->getValue() == key)
         {

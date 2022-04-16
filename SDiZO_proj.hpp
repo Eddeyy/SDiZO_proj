@@ -12,13 +12,14 @@
 #include "DataStructures/Element.hpp"
 #include "DataStructures/DArray/DynamicArray.hpp"
 #include "DataStructures/DArray/DynamicArray.tpp"
-#include "DataStructures/Darray/ArrayElement.hpp"
-#include "DataStructures/Darray/ArrayElement.tpp"
+#include "DataStructures/DArray/ArrayElement.hpp"
+#include "DataStructures/DArray/ArrayElement.tpp"
 #include "DataStructures/DList/DLList.hpp"
 #include "DataStructures/DList/DLList.tpp"
 #include "DataStructures/DList/ListElement.hpp"
 #include "DataStructures/DList/ListElement.tpp"
 #include "Utility/Utilities.hpp"
 #include "Utility/DataManager.hpp"
+#include "Utility/DataManager.tpp"
 
 #endif //SDIZO_PROJ_SDIZO_PROJ_HPP

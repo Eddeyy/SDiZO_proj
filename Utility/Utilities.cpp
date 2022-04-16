@@ -4,13 +4,13 @@
 #include "Utilities.hpp"
 
 
-bool is_path_exists(const std::string& s)
+bool ut::is_path_exists(const std::string& s)
 {
     struct stat buffer;
     return (stat(s.c_str(), &buffer) == 0);
 }
 
-void make_directory(const std::string& s)
+void ut::make_directory(const std::string& s)
 {
     if (_mkdir(s.c_str()) != 0)
     {
@@ -18,7 +18,7 @@ void make_directory(const std::string& s)
     }
 }
 
-bool file_exists(const std::string& fileName, const std::string& dir)
+bool ut::file_exists(const std::string& fileName, const std::string& dir)
 {
     std::ifstream infile(dir + fileName);
     return infile.good();

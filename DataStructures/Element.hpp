@@ -22,6 +22,13 @@ public:
     bool operator<= (const Element& B){return !(*this > B);};
     bool operator>= (const Element& B){return !(*this < B);};
 
+    bool operator== (const T& B){return this->value == B;};
+    bool operator!= (const T& B){return *this != B;};
+    bool operator< (const T& B){return this->value < B;};
+    bool operator> (const T& B){return B < *this;};
+    bool operator<= (const T& B){return !(*this > B);};
+    bool operator>= (const T& B){return !(*this < B);};
+
     virtual std::ostream& operator<<(std::ostream &out)
     {
         out << this->getValue();

@@ -13,6 +13,7 @@ class DynamicArray : public DataStruct<T>
 public:
 
     DynamicArray();
+    DynamicArray(const std::vector<T>& vec);
     virtual ~DynamicArray();
 
     void push_back(T val) override;
@@ -27,10 +28,13 @@ public:
 
     void print() override;
 
-    T& operator[] (int index);
+    const T& operator[] (int index) const;
+    ArrayElement<T>& operator[] (int index);
+
 
     DynamicArray(const DynamicArray& origin);
     DynamicArray& operator= (const DynamicArray& origin);
+    DynamicArray& operator= (const std::vector<T> &array) override;
 };
 
 
