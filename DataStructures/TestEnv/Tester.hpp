@@ -48,6 +48,7 @@ public:
     double terase(size_t index = -2);
 
     std::vector<double> test_all();
+    std::vector<double> test_avg(const size_t& iterations);
 
     void setSubject(DataStruct<T>* structure);
     void clear();

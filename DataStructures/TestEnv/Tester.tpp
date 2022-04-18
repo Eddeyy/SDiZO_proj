@@ -152,13 +152,13 @@ double Tester<T>::tadd(const size_t& val, size_t index)
 {
     if(subject != nullptr)
     {
-        startCounter();
-
         if(index == -2)
             index = subject->length()/2;
-        subject->add(val,index);
 
+        startCounter();
+        subject->add(val,index);
         double time = getCounter();
+
         std::cout << "Elapsed time since call of add(): " << time << "[ms]\n";
         return time;
     }
@@ -209,14 +209,13 @@ double Tester<T>::terase(size_t index)
 {
     if(subject != nullptr)
     {
-        startCounter();
-
         if(index == -2)
             index = subject->length()/2;
 
+        startCounter();
         subject->erase(index);
-
         double time = getCounter();
+
         std::cout << "Elapsed time since call of erase(): " << time << "[ms]\n";
         return time;
     }
@@ -249,6 +248,29 @@ std::vector<double> Tester<T>::test_all()
 
     return test_data;
 }
+
+template<typename T>
+std::vector<double> Tester<T>::test_avg(const size_t& iterations)
+{
+    std::vector<double> avg_data(6, 0);
+    const size_t struct_size = subject->length();
+    test_data.clear();
+    for(int i = 0; i<iterations; i++)
+    {
+        test_all();
+        for(int j=0; j<test_data.size(); j++)
+        {
+            avg_data[j]+=test_data[j];
+        }
+        *subject = genRand(struct_size);
+    }
+
+    for(auto &d : avg_data)
+        d=d/iterations;
+
+    test_data = avg_data;
+    return avg_data;
+};
 /////////////////////////////////////////////////////
 ///     Query performance counter functions       ///
 /////////////////////////////////////////////////////
