@@ -19,4 +19,6 @@ add_executable(
         Utility/DataManager.tpp
         Utility/Utilities.hpp
         Utility/Utilities.cpp
-        )
+        DataStructures/TestEnv/Tester.hpp
+        DataStructures/TestEnv/Tester.tpp
+)

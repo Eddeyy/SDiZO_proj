@@ -19,19 +19,7 @@ DLList<T>::DLList(const std::vector<T> &vec)
 template<typename T>
 DLList<T>::~DLList()
 {
-    if(tail != nullptr)
-    {
-        ListElement<T>* cur = tail;
-        ListElement<T>* prev = tail;
-
-        for(int i = this->num_of_elements; i > 0; i--)
-        {
-            if(i>1)
-                cur = cur->getPrev();
-            delete prev;
-            prev = cur;
-        }
-    }
+    clear();
     std::cout << "DList memory freed\n";
 }
 
@@ -100,20 +88,38 @@ void DLList<T>::add(T val, size_t index)
 template<typename T>
 void DLList<T>::pop_back()
 {
-    auto prev = (*this)[this->num_of_elements-1];
-    prev.setNext(nullptr);
-    delete tail;
-    tail = &prev;
+    if(this->num_of_elements>1)
+    {
+        auto prev = tail->getPrev();
+        prev->setNext(nullptr);
+        delete tail;
+        tail = prev;
+    }
+    else
+    {
+        delete tail;
+        tail=nullptr;
+        head=nullptr;
+    }
     this->num_of_elements--;
 }
 
 template<typename T>
 void DLList<T>::pop_front()
 {
-    auto prev = (*this)[1];
-    prev.setPrev(nullptr);
-    delete head;
-    head = &prev;
+    if(this->num_of_elements>1)
+    {
+        auto prev = &(*this)[1];
+        prev->setPrev(nullptr);
+        delete head;
+        head = prev;
+    }
+    else
+    {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+    }
     this->num_of_elements--;
 }
 
@@ -139,6 +145,23 @@ void DLList<T>::erase(size_t index)
 }
 
 template<typename T>
+void DLList<T>::clear()
+{
+    for(int i = this->num_of_elements-1; i>0; i--)
+    {
+        auto prev = tail->getPrev();
+        prev->setNext(nullptr);
+        delete tail;
+        tail = prev;
+    }
+    delete tail;
+    tail = nullptr;
+    head = nullptr;
+
+    this->num_of_elements = 0;
+}
+
+template<typename T>
 void DLList<T>::print()
 {
     ListElement<T>* curEl = head;
@@ -147,9 +170,18 @@ void DLList<T>::print()
     std::cout << "Elements in List:\n";
     while(curEl!=nullptr)
     {
-        result += std::to_string(curEl->getValue());
+
+        if(curEl->getPrev()!=nullptr)
+            result += "<" + std::to_string(curEl->getPrev()->getValue()) + ">";
+        else
+            result += "<NULL>";
+        result += " <<-- <"+ std::to_string(curEl->getValue()) + "> -->> ";
+        if(curEl->getNext()!= nullptr)
+            result += "<" + std::to_string(curEl->getNext()->getValue()) + ">";
+        else
+            result +="<NULL>";
         if(curEl->getNext()!=nullptr)
-            result += ", ";
+            result += ",\n";
         curEl = curEl->getNext();
     }
     result += " ]\n";
@@ -248,15 +280,21 @@ DLList<T> &DLList<T>::operator=(const DLList &origin)
 template<typename T>
 DLList<T> &DLList<T>::operator=(const std::vector<T> &array)
 {
-    if(this->num_of_elements == array.size())
-        for(int i = 0; i<this->num_of_elements; i++)
-            if((*this)[i] == array[i])
-                return *this;
 
-    for(int i = this->num_of_elements; i>0; i--)
+    if(this->num_of_elements == array.size())
     {
-        this->pop_back();
+        bool isDifferent = false;
+        for (int i = 0; i < this->num_of_elements; i++)
+            if ((*this)[i] != array[i])
+            {
+                isDifferent = true;
+                break;
+            }
+        if (!isDifferent)
+            return *this;
     }
+
+    this->clear();
 
     for(int i = 0; i < array.size(); i++)
     {

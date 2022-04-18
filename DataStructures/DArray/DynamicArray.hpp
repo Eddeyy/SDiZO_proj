@@ -22,6 +22,7 @@ public:
     void pop_back() override;
     void pop_front() override;
     void erase(size_t index) override;
+    void clear() override;
 
     const Element<T> *find(const T& key) override;
     const Element<T> *rfind(const T& key) override;

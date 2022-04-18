@@ -3,38 +3,34 @@
 #include "SDiZO_proj.hpp"
 int main(int argc, char* argv[])
 {
+
     {
     DataManager* dMan = DataManager::getInstance("./Data");
+    Tester<int> t;
 
-    DynamicArray<int> something = dMan->loadFromFile<int>("testunio.txt");
+    DLList<int> dlist = dMan->loadFromFile<int>("chuj.txt");
+        t.setSubject(&dlist);
 
-    DataStruct<int>* sth[2];
-    sth[0] = new DLList<int>;
-    sth[1] = new DynamicArray<int>;
+    dlist.print();
 
-    for(int i = 0; i <2 ; i++)
-    {
-        *sth[i] = dMan->loadFromFile<int>("test" + std::to_string(i) + ".txt");
-    }
+        t.test_all();
+        t.dumpToFile("chuj_test.txt");
+        t.dumpToFile("temp.txt");
 
-    for(auto s : sth)
-        s->print();
+    dlist.print();
 
-    something.print();
+        t.tpush_back(2);
+        t.tpush_front(2);
+        t.tadd(2);
+        t.tpop_back();
+        t.tpop_front();
+        t.terase();
 
-    DLList<int> something1 = dMan->loadFromFile<int>("test1.txt");
+    dlist.print();
 
-    something1.print();
+    //dlist.print();
 
-    std::cout << something1.find(69)->getValue() << std::endl;
-
-    //something1->rfind(2137)
-
-    std::cout << something.rfind(1)->getValue() << std::endl;
-    dMan->saveToFile("testunio.txt",&something);
-
-    for(auto & i : sth)
-        delete i;
+    //dMan->saveToFile("chuj.txt",&dlist);
 
     std::cout << "\nFINISHED!\n";
     }

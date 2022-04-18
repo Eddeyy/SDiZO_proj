@@ -139,6 +139,14 @@ void DynamicArray<T>::erase(size_t index)
 }
 
 template <typename T>
+void DynamicArray<T>::clear()
+{
+    delete[] this->arr;
+    this->num_of_elements = 0;
+    this->arr = nullptr;
+}
+
+template <typename T>
 void DynamicArray<T>::print()
 {
     std::cout << "Elements in Array:\n";
@@ -147,7 +155,7 @@ void DynamicArray<T>::print()
     {
         result += std::to_string(this->arr[i]);
         if(i!=this->num_of_elements-1)
-            result += ", ";
+            result += ",\n";
     }
     result += " ]\n";
     std::cout << result;
@@ -215,9 +223,17 @@ template<typename T>
 DynamicArray<T> &DynamicArray<T>::operator= (const std::vector<T> &array)
 {
     if(this->num_of_elements == array.size())
-        for(int i = 0; i<this->num_of_elements; i++)
-            if(this->arr[i] == array[i])
-                return *this;
+    {
+        bool isDifferent = false;
+        for (int i = 0; i < this->num_of_elements; i++)
+            if (this->arr[i] != array[i])
+            {
+                isDifferent = true;
+                break;
+            }
+        if (!isDifferent)
+            return *this;
+    }
 
     this->num_of_elements = array.size();
 

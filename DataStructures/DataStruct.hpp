@@ -25,6 +25,7 @@ public:
     virtual void pop_front() = 0;
     virtual void add(T val, size_t index) = 0;
     virtual void erase(size_t index) = 0;
+    virtual void clear() = 0;
 
     virtual void print()
     {
@@ -37,7 +38,7 @@ public:
 
     const size_t &length(){return num_of_elements;};
     virtual const Element<T> *find(const T& key) = 0;
-    virtual const Element<int> * rfind(const T& key) = 0;
+    virtual const Element<T> * rfind(const T& key) = 0;
 
     virtual const T& operator[] (int index) const = 0;
     DataStruct& operator= (const DataStruct&) = delete;

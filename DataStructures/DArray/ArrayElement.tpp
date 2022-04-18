@@ -1,7 +1,8 @@
 //
 // Created by thero on 15.04.2022.
 //
-
+#ifndef SDIZO_PROJ_ARRAY_ELEMENT_TPP
+#define SDIZO_PROJ_ARRAY_ELEMENT_TPP
 #include "ArrayElement.hpp"
 
 
@@ -38,3 +39,4 @@ ArrayElement<T> &ArrayElement<T>::operator=(T val)
 
     return *this;
 }
+#endif

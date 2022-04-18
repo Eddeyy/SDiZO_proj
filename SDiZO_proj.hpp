@@ -21,5 +21,7 @@
 #include "Utility/Utilities.hpp"
 #include "Utility/DataManager.hpp"
 #include "Utility/DataManager.tpp"
+#include "DataStructures/TestEnv/Tester.hpp"
+#include "DataStructures/TestEnv/Tester.tpp"
 
 #endif //SDIZO_PROJ_SDIZO_PROJ_HPP
