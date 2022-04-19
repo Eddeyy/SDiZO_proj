@@ -23,5 +23,9 @@
 #include "Utility/DataManager.tpp"
 #include "DataStructures/TestEnv/Tester.hpp"
 #include "DataStructures/TestEnv/Tester.tpp"
+#include "DataStructures/BHeap/BHeap.hpp"
+#include "DataStructures/BHeap/BHeap.tpp"
+#include "UI/UI.hpp"
+
 
 #endif //SDIZO_PROJ_SDIZO_PROJ_HPP

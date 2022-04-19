@@ -4,7 +4,7 @@
 
 template<typename T>
 DLList<T>::DLList()
-: DataStruct<T>(), head{nullptr}, tail{nullptr}
+: DataStruct<T>("Doubly-linked List"), head{nullptr}, tail{nullptr}
 {
     //constructor body
 }
@@ -172,12 +172,12 @@ void DLList<T>::print()
     {
 
         if(curEl->getPrev()!=nullptr)
-            result += "<" + std::to_string(curEl->getPrev()->getValue()) + ">";
+            result += "<" + std::to_string(curEl->getPrev()->getVal()) + ">";
         else
             result += "<NULL>";
-        result += " <<-- <"+ std::to_string(curEl->getValue()) + "> -->> ";
+        result += " <<-- <" + std::to_string(curEl->getVal()) + "> -->> ";
         if(curEl->getNext()!= nullptr)
-            result += "<" + std::to_string(curEl->getNext()->getValue()) + ">";
+            result += "<" + std::to_string(curEl->getNext()->getVal()) + ">";
         else
             result +="<NULL>";
         if(curEl->getNext()!=nullptr)
@@ -216,7 +216,7 @@ const T &DLList<T>::operator[](int index) const
             elem = elem->getPrev();
         }
     }
-        return elem->getValue();
+        return elem->getVal();
 }
 
 template<typename T>
@@ -308,7 +308,7 @@ const Element<T>* DLList<T>::find(const T& key)
     ListElement<T>* temp = this->head;
     for(int i = 0; i<this->num_of_elements; i++)
     {
-        if(temp->getValue() == key)
+        if(temp->getVal() == key)
         {
             return temp;
         }
@@ -323,7 +323,7 @@ const Element<T>* DLList<T>::rfind(const T& key)
     ListElement<T>* temp = this->tail;
     for(int i = this->num_of_elements-1; i>-1; i--)
     {
-        if(temp->getValue() == key)
+        if(temp->getVal() == key)
         {
             return temp;
         }

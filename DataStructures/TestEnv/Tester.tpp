@@ -67,7 +67,7 @@ std::vector<T> Tester<T>::gen(const size_t& size, const float& v)
 }
 
 template<typename T>
-void Tester<T>::dumpToFile(const std::string &fileName)
+void Tester<T>::dumpToFile(const std::string &fileName, const size_t& its)
 {
     std::fstream file;
 
@@ -79,6 +79,10 @@ void Tester<T>::dumpToFile(const std::string &fileName)
         throw ut::utilityException("Could not open Logs/" + fileName);
 
     file << ">>>Test data for " << fileName << "<<<\n";
+    file << "Number of elements : " << subject->length() << "\n";
+    file << "Number of tests performed : " << its << "\n";
+    file << "==========================================\n";
+
 
     file << "push_back  : " << test_data[0] << "[ms]\n";
     file << "push_front : " << test_data[1] << "[ms]\n";
@@ -91,8 +95,6 @@ void Tester<T>::dumpToFile(const std::string &fileName)
     file.close();
     std::cout << "\nSuccessfully saved into \"" + fileName + "\" in Logs.\n";
 
-
-//TODO: implement to gowno
 }
 
 
@@ -270,7 +272,7 @@ std::vector<double> Tester<T>::test_avg(const size_t& iterations)
 
     test_data = avg_data;
     return avg_data;
-};
+}
 /////////////////////////////////////////////////////
 ///     Query performance counter functions       ///
 /////////////////////////////////////////////////////

@@ -10,6 +10,8 @@
 template<typename T>
 class DynamicArray : public DataStruct<T>
 {
+protected:
+    T* arr = nullptr;
 public:
 
     DynamicArray();

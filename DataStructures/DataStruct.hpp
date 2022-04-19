@@ -13,9 +13,9 @@ class DataStruct // abstract
 {
 protected:
     size_t num_of_elements;
-    T* arr = nullptr;
+    const std::string name;
 public:
-    DataStruct() : num_of_elements{0}
+    DataStruct(std::string name_) : num_of_elements{0}, name{name_}
     {}
     virtual ~DataStruct()= default;
 
@@ -23,20 +23,14 @@ public:
     virtual void pop_back() = 0;
     virtual void push_front(T val) = 0;
     virtual void pop_front() = 0;
-    virtual void add(T val, size_t index) = 0;
+    virtual void add(T val, size_t index = -1) = 0;
     virtual void erase(size_t index) = 0;
     virtual void clear() = 0;
 
-    virtual void print()
-    {
-        std::cout << "Elements in Array:\n";
-        for(int i = 0; i < num_of_elements; i++)
-        {
-            std::cout << arr[i] << std::endl;
-        }
-    }
+    virtual void print() = 0;
 
     const size_t &length(){return num_of_elements;};
+    const std::string& getName(){return this->name;};
     virtual const Element<T> *find(const T& key) = 0;
     virtual const Element<T> * rfind(const T& key) = 0;
 

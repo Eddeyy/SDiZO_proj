@@ -50,7 +50,7 @@ ListElement<T> &ListElement<T>::operator=(const Element<T> &origin)
 template<typename T>
 ListElement<T> &ListElement<T>::operator=(T val)
 {
-    if(this->getValue() == val)
+    if(this->getVal() == val)
         return *this;
 
     this->value = val;
@@ -61,7 +61,7 @@ ListElement<T> &ListElement<T>::operator=(T val)
 template<typename T>
 std::ostream& ListElement<T>::operator<<(std::ostream &out)
 {
-    out << this->getValue();
+    out << this->getVal();
     return out;
 }
 

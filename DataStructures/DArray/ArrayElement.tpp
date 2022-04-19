@@ -32,7 +32,7 @@ ArrayElement<T> &ArrayElement<T>::operator=(const Element<T> &origin)
 template<typename T>
 ArrayElement<T> &ArrayElement<T>::operator=(T val)
 {
-    if(this->getValue() == val)
+    if(this->getVal() == val)
         return *this;
 
     this->value = val;

@@ -53,7 +53,7 @@ public:
     void setSubject(DataStruct<T>* structure);
     void clear();
 
-    void dumpToFile(const std::string &fileName);
+    void dumpToFile(const std::string &fileName, const size_t& its = 1);
 
 };
 #endif //SDIZO_PROJ_TESTER_HPP

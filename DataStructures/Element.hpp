@@ -31,11 +31,11 @@ public:
 
     virtual std::ostream& operator<<(std::ostream &out)
     {
-        out << this->getValue();
+        out << this->getVal();
         return out;
     };
 
-    const T& getValue() const
+    const T& getVal() const
     {
         return this->value;
     };

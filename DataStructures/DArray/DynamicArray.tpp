@@ -3,7 +3,7 @@
 #include "DynamicArray.hpp"
 
 template<typename T>
-DynamicArray<T>::DynamicArray() : DataStruct<T>()
+DynamicArray<T>::DynamicArray() : DataStruct<T>("Dynamic Array")
 {
     this->arr = new T[0];
 }
