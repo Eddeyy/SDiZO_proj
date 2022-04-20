@@ -86,16 +86,19 @@ void DynamicArray<T>::add(T val, size_t index)
 template<typename T>
 void DynamicArray<T>::pop_back()
 {
-    this->num_of_elements--;
-    T *temp = new T[this->num_of_elements];
-
-    for (int i = 0; i < this->num_of_elements; i++)
+    if(this->num_of_elements>0)
     {
-        temp[i] = this->arr[i];
-    }
-    delete[] this->arr;
+        this->num_of_elements--;
+        T *temp = new T[this->num_of_elements];
 
-    this->arr = temp;
+        for (int i = 0; i < this->num_of_elements; i++)
+        {
+            temp[i] = this->arr[i];
+        }
+        delete[] this->arr;
+
+        this->arr = temp;
+    }
 }
 
 template<typename T>
@@ -254,7 +257,7 @@ template<typename T>
 const Element<T> *DynamicArray<T>::find(const T &key)
 {
     ArrayElement<T> *temp;
-    for(int i = 0; i<this->num_of_elements; i++)
+    for(int i = 0; i < this->num_of_elements; i++)
         if(this->arr[i]==key)
         {
             temp->setVal(this->arr[i]);

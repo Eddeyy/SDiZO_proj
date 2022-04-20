@@ -34,7 +34,6 @@ public:
     virtual const Element<T> *find(const T& key) = 0;
     virtual const Element<T> * rfind(const T& key) = 0;
 
-    virtual const T& operator[] (int index) const = 0;
     DataStruct& operator= (const DataStruct&) = delete;
     virtual DataStruct& operator= (const std::vector<T>&) = 0;
 };

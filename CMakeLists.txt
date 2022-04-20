@@ -21,4 +21,11 @@ add_executable(
         Utility/Utilities.cpp
         DataStructures/TestEnv/Tester.hpp
         DataStructures/TestEnv/Tester.tpp
-        DataStructures/BHeap/BHeap.tpp DataStructures/BHeap/BHeap.hpp UI/UI.cpp UI/UI.hpp)
+        DataStructures/BHeap/BHeap.tpp
+        DataStructures/BHeap/BHeap.hpp
+        UI/UI.cpp
+        UI/UI.hpp
+        DataStructures/RBTree/RBTree.tpp
+        DataStructures/RBTree/RBTree.hpp
+        DataStructures/RBTree/Node.tpp
+        DataStructures/RBTree/Node.hpp)

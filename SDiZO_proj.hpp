@@ -26,6 +26,8 @@
 #include "DataStructures/BHeap/BHeap.hpp"
 #include "DataStructures/BHeap/BHeap.tpp"
 #include "UI/UI.hpp"
+#include "DataStructures/RBTree/RBTree.hpp"
+#include "DataStructures/RBTree/RBTree.tpp"
 
 
 #endif //SDIZO_PROJ_SDIZO_PROJ_HPP

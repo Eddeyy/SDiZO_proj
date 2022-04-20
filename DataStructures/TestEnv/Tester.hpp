@@ -7,6 +7,7 @@
 #include "../DataStruct.hpp"
 #include "../../DataStructures/DArray/DynamicArray.hpp"
 #include "../../DataStructures/DList/DLList.hpp"
+#include "../../DataStructures/RBTree/RBTree.hpp"
 #include "../../Utility/DataManager.hpp"
 #include "../../Utility/Utilities.hpp"
 #include <iostream>
@@ -24,6 +25,7 @@ protected:
     std::default_random_engine e;
     DataStruct<T>* subject;
     std::vector<double> test_data;
+    size_t test_count;
 
     double PCFreq = 0.0;
     __int64 CounterStart = 0;
@@ -46,6 +48,7 @@ public:
     double tpop_back();
     double tpop_front();
     double terase(size_t index = -2);
+    double tfind(size_t key);
 
     std::vector<double> test_all();
     std::vector<double> test_avg(const size_t& iterations);
@@ -53,7 +56,7 @@ public:
     void setSubject(DataStruct<T>* structure);
     void clear();
 
-    void dumpToFile(const std::string &fileName, const size_t& its = 1);
+    void dumpToFile(const std::string &fileName);
 
 };
 #endif //SDIZO_PROJ_TESTER_HPP

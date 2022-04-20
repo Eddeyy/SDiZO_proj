@@ -1,7 +1,8 @@
 //
 // Created by thero on 18.04.2022.
 //
-
+#ifndef SDIZO_PROJ_BHEAP_TPP
+#define SDIZO_PROJ_BHEAP_TPP
 #include "BHeap.hpp"
 
 template<typename T>
@@ -13,25 +14,22 @@ BHeap<T>::BHeap()
 template<typename T>
 void BHeap<T>::push_back(T val)
 {
-    add(val);
 }
 
 template<typename T>
 void BHeap<T>::pop_back()
 {
-    erase(this->num_of_elements-1);
 }
 
 template<typename T>
 void BHeap<T>::push_front(T val)
 {
-    add(val);
 }
 
 template<typename T>
 void BHeap<T>::pop_front()
 {
-    erase(0);
+
 }
 
 template<typename T>
@@ -50,29 +48,28 @@ void BHeap<T>::add(T val, size_t index)
 
     this->root = temp;
 
-    int i = this->num_of_elements-1;
-
     restoreHeap();
 }
 
 template<typename T>
 void BHeap<T>::erase(size_t index)
 {
-    if(index > -1 && index < this->num_of_elements-1)
-    {
-        if(std::is_integral<T>::value)
-            root[index] = INT_MAX;
-        else
-            throw ut::utilityException("Erase not implemented correctly for that type in BHeap.tpp");
+    if(index < 0)
+        throw std::out_of_range("Index out of range!\n");
 
-        while (index != 0 && root[parent(index)]>root[index])
-        {
-            swap(index, parent(index));
-            index = parent(index);
-        }
-        extractMax();
+    if(index >= this->num_of_elements)
+        throw std::out_of_range("Index out of range!\n");
+
+    if(std::is_integral<T>::value)
+        root[index] = INT_MAX;
+    else
+        throw ut::utilityException("Erase not implemented correctly for that type in BHeap.tpp");
+    while (index != 0 && root[parent(index)]>root[index])
+    {
+        swap(index, parent(index));
+        index = parent(index);
     }
-    throw std::out_of_range("Index out of range!\n");
+    extractMax();
 }
 
 template<typename T>
@@ -113,8 +110,6 @@ void BHeap<T>::clear()
 template<typename T>
 void BHeap<T>::print()
 {
-//TODO: ukradzione, dieki gniotek
-
     if (this->num_of_elements > 0 && this->root != nullptr)
     {
         bool outOfBound = false;
@@ -288,10 +283,16 @@ size_t BHeap<T>::right(size_t index)
 }
 
 template<typename T>
-const Element<T>* BHeap<T>::find(const T &key)
+const ArrayElement<T>* BHeap<T>::find(const T &key)
 {
-    //TODO: implement to gowno
-    return nullptr;
+    ArrayElement<T> *temp;
+    for(int i = 0; i < this->num_of_elements; i++)
+        if(this->root[i]==key)
+        {
+            temp->setVal(this->root[i]);
+            return temp;
+        }
+    throw std::invalid_argument("No such key in heap.");
 }
 
 template<typename T>
@@ -319,3 +320,5 @@ void BHeap<T>::buildHeap()
     for(int i = (this->num_of_elements-1)/2; i > -1; i--)
         heapifyMax(i);
 }
+
+#endif

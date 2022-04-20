@@ -5,7 +5,9 @@
 #ifndef SDIZO_PROJ_BHEAP_HPP
 #define SDIZO_PROJ_BHEAP_HPP
 #include "../DataStruct.hpp"
+#include "../DArray/ArrayElement.hpp"
 #include "../../Utility/Utilities.hpp"
+#include <cmath>
 
 template<typename T>
 class BHeap : public DataStruct<T>
@@ -38,12 +40,12 @@ public:
     size_t right(size_t index);
 
 
-    const Element<T>* find(const T& key) override;
+    const ArrayElement<T>* find(const T& key) override;
     const Element<T>* rfind(const T& key) override;
     const T* kfind(const T& key) ;
     const T* krfind(const T& key) ;
 
-    const T& operator[] (int index) const override;
+    const T& operator[] (int index) const;
     BHeap& operator= (const BHeap& origin);
     BHeap& operator= (const std::vector<T>& origin) override;
 

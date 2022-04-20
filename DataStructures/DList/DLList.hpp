@@ -32,7 +32,7 @@ public:
     const Element<T> *find(const T& key) override;
     const Element<T> *rfind(const T& key) override;
 
-    const T& operator[] (int index) const override;
+    const T& operator[] (int index) const;
     ListElement<T>& operator[] (int index);
 
     DLList(const DLList& origin);

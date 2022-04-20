@@ -35,7 +35,7 @@ public:
         return out;
     };
 
-    const T& getVal() const
+    T& getVal()
     {
         return this->value;
     };
