@@ -285,12 +285,12 @@ size_t BHeap<T>::right(size_t index)
 template<typename T>
 const ArrayElement<T>* BHeap<T>::find(const T &key)
 {
-    ArrayElement<T> *temp;
+    ArrayElement<T> temp;
     for(int i = 0; i < this->num_of_elements; i++)
         if(this->root[i]==key)
         {
-            temp->setVal(this->root[i]);
-            return temp;
+            temp.setVal(this->root[i]);
+            return &temp;
         }
     throw std::invalid_argument("No such key in heap.");
 }

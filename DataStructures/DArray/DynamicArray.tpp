@@ -256,12 +256,12 @@ DynamicArray<T> &DynamicArray<T>::operator= (const std::vector<T> &array)
 template<typename T>
 const Element<T> *DynamicArray<T>::find(const T &key)
 {
-    ArrayElement<T> *temp;
+    ArrayElement<T> temp;
     for(int i = 0; i < this->num_of_elements; i++)
         if(this->arr[i]==key)
         {
-            temp->setVal(this->arr[i]);
-            return temp;
+            temp.setVal(this->arr[i]);
+            return &temp;
         }
     throw std::invalid_argument("No such key in array.");
 }

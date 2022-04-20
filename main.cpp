@@ -13,8 +13,11 @@ int main(int argc, char* argv[])
     DynamicArray<int> a;
     a = t.genRand(3);
     t.setSubject(&a);
-    t.test_all();
+    t.tadd(1);
+    t.tfind(1);
+    //t.test_all();
     //t.test_avg(3);
+
 
     ui.app();
 
