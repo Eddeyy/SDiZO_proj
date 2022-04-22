@@ -1,6 +1,7 @@
 #ifndef SDIZO_PROJ_DYNAMIC_ARRAY_TPP
 #define SDIZO_PROJ_DYNAMIC_ARRAY_TPP
 #include "DynamicArray.hpp"
+#include <memory>
 
 template<typename T>
 DynamicArray<T>::DynamicArray() : DataStruct<T>("Dynamic Array")
@@ -60,7 +61,7 @@ void DynamicArray<T>::push_front(T val)
 template<typename T>
 void DynamicArray<T>::add(T val, size_t index)
 {
-    if (index < 0 || index > this->num_of_elements)
+    if (index > this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     this->num_of_elements++;
@@ -104,23 +105,26 @@ void DynamicArray<T>::pop_back()
 template<typename T>
 void DynamicArray<T>::pop_front()
 {
-    T *temp = new T[this->num_of_elements - 1];
-
-    for (int i = 1; i < this->num_of_elements; i++)
+    if(this->num_of_elements>0)
     {
-        temp[i - 1] = this->arr[i];
+        T *temp = new T[this->num_of_elements - 1];
+
+        for (int i = 1; i < this->num_of_elements; i++)
+        {
+            temp[i - 1] = this->arr[i];
+        }
+        delete[] this->arr;
+
+        this->num_of_elements--;
+
+        this->arr = temp;
     }
-    delete[] this->arr;
-
-    this->num_of_elements--;
-
-    this->arr = temp;
 }
 
 template<typename T>
 void DynamicArray<T>::erase(size_t index)
 {
-    if (index < 0 || index >= this->num_of_elements)
+    if (index > this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     T *temp = new T[this->num_of_elements - 1];
@@ -256,12 +260,12 @@ DynamicArray<T> &DynamicArray<T>::operator= (const std::vector<T> &array)
 template<typename T>
 const Element<T> *DynamicArray<T>::find(const T &key)
 {
-    ArrayElement<T> temp;
+    std::shared_ptr<ArrayElement<T>> temp = std::make_shared<ArrayElement<T>>();
     for(int i = 0; i < this->num_of_elements; i++)
         if(this->arr[i]==key)
         {
-            temp.setVal(this->arr[i]);
-            return &temp;
+            temp->setVal(this->arr[i]);
+            return &(*temp);
         }
     throw std::invalid_argument("No such key in array.");
 }

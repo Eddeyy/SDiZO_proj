@@ -2,6 +2,9 @@
 // Created by thero on 19.03.2022.
 //
 
+#ifndef SDIZO_PROJ_DATAMANAGER_TPP
+#define SDIZO_PROJ_DATAMANAGER_TPP
+
 #include "DataManager.hpp"
 
 DataManager* DataManager::dataManager_ = nullptr;
@@ -72,3 +75,5 @@ DataManager *DataManager::getInstance(const std::string &dataDir)
     };
     return dataManager_;
 }
+
+#endif

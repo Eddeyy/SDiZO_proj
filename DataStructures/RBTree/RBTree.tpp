@@ -593,7 +593,7 @@ template<typename T>
 void RBTree<T>::clear()
 {
     while(this->num_of_elements)
-        erase(root->getVal());
+        erase(this->root->getVal());
 }
 
 #endif

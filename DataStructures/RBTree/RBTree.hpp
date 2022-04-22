@@ -7,6 +7,10 @@
 #include <iostream>
 #include "Node.hpp"
 
+
+template<typename T>
+class Tester;
+
 template<typename T>
 class RBTree : public DataStruct<T>
 {
@@ -45,7 +49,7 @@ public:
 
     RBTree& operator= (const std::vector<T>&);
 
-
+    friend class Tester<int>;
 };
 
 

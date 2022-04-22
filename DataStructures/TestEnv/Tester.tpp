@@ -131,7 +131,8 @@ double Tester<T>::tpush_back(const size_t& val)
         subject->push_back(val);
 
         double time = getCounter();
-        std::cout << "Elapsed time since call of push_back(): " << time << "[ms]\n";
+        subject->pop_back();
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of push_back(): " << time << "[ms]\n";
         return time;
     }
     throw
@@ -149,7 +150,8 @@ double Tester<T>::tpush_front(const size_t& val)
         subject->push_front(val);
 
         double time = getCounter();
-        std::cout << "Elapsed time since call of push_front(): " << time << "[ms]\n";
+        subject->pop_front();
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of push_front(): " << time << "[ms]\n";
         return time;
     }
     throw
@@ -168,7 +170,11 @@ double Tester<T>::tadd(const size_t& val, size_t index)
         subject->add(val,index);
         double time = getCounter();
 
-        std::cout << "Elapsed time since call of add(): " << time << "[ms]\n";
+        if(dynamic_cast<RBTree<T>*>(subject))
+            subject->erase(val);
+        else
+            subject->erase(index);
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of add(): " << time << "[ms]\n";
         return time;
     }
     throw
@@ -181,12 +187,14 @@ double Tester<T>::tpop_back()
 
     if(subject != nullptr)
     {
+
         startCounter();
 
         subject->pop_back();
 
         double time = getCounter();
-        std::cout << "Elapsed time since call of pop_back(): " << time << "[ms]\n";
+        subject->push_back(1);
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of pop_back(): " << time << "[ms]\n";
         return time;
     }
     throw
@@ -205,7 +213,8 @@ double Tester<T>::tpop_front()
         subject->pop_front();
 
         double time = getCounter();
-        std::cout << "Elapsed time since call of pop_front(): " << time << "[ms]\n";
+        subject->push_front(1);
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of pop_front(): " << time << "[ms]\n";
         return time;
     }
     throw
@@ -223,11 +232,21 @@ double Tester<T>::terase(size_t index)
         if(dynamic_cast<RBTree<T>*>(subject))
             index = 1;
 
+        if(dynamic_cast<RBTree<T>*>(subject))
+            subject->erase(static_cast<RBTree<T>*>(subject)->root->getVal());
+        else
+            subject->pop_front();
+        subject->add(-2,index);
+
         startCounter();
-        subject->erase(index);
+        if(dynamic_cast<RBTree<T>*>(subject))
+            subject->erase(-2);
+        else
+            subject->erase(index);
         double time = getCounter();
 
-        std::cout << "Elapsed time since call of erase(): " << time << "[ms]\n";
+        subject->add(1,index);
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of erase(): " << time << "[ms]\n";
         return time;
     }
     throw
@@ -248,7 +267,7 @@ std::vector<double> Tester<T>::test_all()
     test_data.push_back(tadd(1));
     test_data.push_back(tpop_back());
     test_data.push_back(tpop_front());
-    test_data.push_back(tfind(1));
+    test_data.push_back(tfind(-2));
     test_data.push_back(terase());
 
     for(auto d : test_data)
@@ -314,11 +333,18 @@ double Tester<T>::tfind(size_t key)
 {
     if(subject != nullptr)
     {
+        if(dynamic_cast<RBTree<T>*>(subject))
+            subject->erase(static_cast<RBTree<T>*>(subject)->root->getVal());
+        else
+            subject->pop_front();
+
+        subject->add(key,subject->length()/2);
+
         startCounter();
-        subject->find(1);
+        subject->find(key);
         double time = getCounter();
 
-        std::cout << "Elapsed time since call of find(): " << time << "[ms]\n";
+        std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of find(): " << time << "[ms]\n";
         return time;
     }
     throw

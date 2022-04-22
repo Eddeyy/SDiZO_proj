@@ -60,20 +60,24 @@ void DLList<T>::push_front(T val)
 template<typename T>
 void DLList<T>::add(T val, size_t index)
 {
-    if (index < 0 || index > this->num_of_elements+1)
-        throw std::out_of_range("Index out of range!");
+    //TODO: Coś mi tu jebie i nie chce mi się naprawiać teraz, jest 4:12 )))))))))
+    if (index > (this->num_of_elements))
+        if(this->num_of_elements != 0)
+            throw std::out_of_range("Index out of range!");
 
     if(index == 0)
     {
         auto prevHead = head;
         this->head = new ListElement<T>(val, nullptr , this->head);
-        prevHead->setPrev(this->head);
+        if(prevHead != nullptr)
+            prevHead->setPrev(this->head);
     }
     else if(index == this->num_of_elements)
     {
         auto prevTail = tail;
         this->tail = new ListElement<T>(val, tail, nullptr);
-        prevTail->setNext(this->tail);
+        if(prevTail !=nullptr)
+            prevTail->setNext(this->tail);
     }
     else
     {
@@ -88,6 +92,11 @@ void DLList<T>::add(T val, size_t index)
 template<typename T>
 void DLList<T>::pop_back()
 {
+    if(head == nullptr)
+    {
+        throw std::invalid_argument("The list appears to be empty!");
+    }
+
     if(this->num_of_elements>1)
     {
         auto prev = tail->getPrev();
@@ -107,6 +116,10 @@ void DLList<T>::pop_back()
 template<typename T>
 void DLList<T>::pop_front()
 {
+    if(head == nullptr)
+    {
+        throw std::invalid_argument("The list appears to be empty!");
+    }
     if(this->num_of_elements>1)
     {
         auto prev = &(*this)[1];
@@ -126,6 +139,11 @@ void DLList<T>::pop_front()
 template<typename T>
 void DLList<T>::erase(size_t index)
 {
+    if(head == nullptr)
+    {
+        throw std::invalid_argument("The list appears to be empty!");
+    }
+
     auto prev = (*this)[index].getPrev();
     auto next = (*this)[index].getNext();
 
@@ -197,7 +215,7 @@ const T &DLList<T>::operator[](int index) const
         throw std::invalid_argument("The list appears to be empty!");
     }
 
-    if (index < 0 || index >= this->num_of_elements)
+    if (index < -1 || index > this->num_of_elements+1)
         throw std::out_of_range("Index out of range!");
 
     if(index < (this->num_of_elements)/2)
@@ -325,7 +343,9 @@ const Element<T>* DLList<T>::rfind(const T& key)
     {
         if(temp->getVal() == key)
         {
-            return temp;
+            auto a = std::make_shared<ListElement<T>>(*temp);
+
+            return &(*a);
         }
         temp = temp->getPrev();
     }

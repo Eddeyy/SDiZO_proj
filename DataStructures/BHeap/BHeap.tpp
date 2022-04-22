@@ -4,6 +4,7 @@
 #ifndef SDIZO_PROJ_BHEAP_TPP
 #define SDIZO_PROJ_BHEAP_TPP
 #include "BHeap.hpp"
+#include <memory>
 
 template<typename T>
 BHeap<T>::BHeap()
@@ -14,22 +15,25 @@ BHeap<T>::BHeap()
 template<typename T>
 void BHeap<T>::push_back(T val)
 {
+    add(val);
 }
 
 template<typename T>
 void BHeap<T>::pop_back()
 {
+    erase(this->num_of_elements-1);
 }
 
 template<typename T>
 void BHeap<T>::push_front(T val)
 {
+    add(val);
 }
 
 template<typename T>
 void BHeap<T>::pop_front()
 {
-
+    erase(0);
 }
 
 template<typename T>
@@ -285,12 +289,12 @@ size_t BHeap<T>::right(size_t index)
 template<typename T>
 const ArrayElement<T>* BHeap<T>::find(const T &key)
 {
-    ArrayElement<T> temp;
+    std::shared_ptr<ArrayElement<T>> temp = std::make_shared<ArrayElement<T>>();
     for(int i = 0; i < this->num_of_elements; i++)
         if(this->root[i]==key)
         {
-            temp.setVal(this->root[i]);
-            return &temp;
+            temp->setVal(this->root[i]);
+            return &(*temp);
         }
     throw std::invalid_argument("No such key in heap.");
 }

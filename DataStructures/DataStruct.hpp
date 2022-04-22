@@ -30,6 +30,7 @@ public:
     virtual void print() = 0;
 
     const size_t &length(){return num_of_elements;};
+    const Element<T>* getRoot(){return this->root;};
     const std::string& getName(){return this->name;};
     virtual const Element<T> *find(const T& key) = 0;
     virtual const Element<T> * rfind(const T& key) = 0;
