@@ -302,8 +302,14 @@ const ArrayElement<T>* BHeap<T>::find(const T &key)
 template<typename T>
 const Element<T>* BHeap<T>::rfind(const T &key)
 {
-    //TODO: implement to gowno
-    return nullptr;
+    std::shared_ptr<ArrayElement<T>> temp = std::make_shared<ArrayElement<T>>();
+    for(int i = this->num_of_elements-1; i > -1 ; i--)
+        if(this->root[i]==key)
+        {
+            temp->setVal(this->root[i]);
+            return &(*temp);
+        }
+    throw std::invalid_argument("No such key in heap.");
 }
 
 template<typename T>
@@ -326,3 +332,6 @@ void BHeap<T>::buildHeap()
 }
 
 #endif
+
+//TODO: clean up code
+//TODO: comment the code

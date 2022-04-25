@@ -31,8 +31,8 @@ public:
 
     void print() override;
 
-    const T& operator[] (int index) const;
-    ArrayElement<T>& operator[] (int index);
+    const T& operator[] (const size_t index) const;
+    ArrayElement<T>& operator[] (const size_t index);
 
 
     DynamicArray(const DynamicArray& origin);

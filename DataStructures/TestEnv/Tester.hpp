@@ -35,7 +35,7 @@ protected:
 
 public:
     Tester();
-    ~Tester();
+    ~Tester() = default;
 
     std::vector<T> genRand(const size_t& size);
     std::vector<T> genFRand(const size_t& size);

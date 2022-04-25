@@ -19,8 +19,6 @@
 #include "DataStructures/DList/ListElement.hpp"
 #include "DataStructures/DList/ListElement.tpp"
 #include "Utility/Utilities.hpp"
-#include "Utility/DataManager.hpp"
-#include "Utility/DataManager.tpp"
 #include "DataStructures/TestEnv/Tester.hpp"
 #include "DataStructures/TestEnv/Tester.tpp"
 #include "DataStructures/BHeap/BHeap.hpp"

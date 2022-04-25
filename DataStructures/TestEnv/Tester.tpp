@@ -10,12 +10,6 @@ Tester<T>::Tester()
 }
 
 template<typename T>
-Tester<T>::~Tester()
-{
-//TODO: implement to gowno
-}
-
-template<typename T>
 std::vector<T> Tester<T>::genRand(const size_t& size)
 {
     std::vector<T> temp;
@@ -187,7 +181,6 @@ double Tester<T>::tpop_back()
 
     if(subject != nullptr)
     {
-
         startCounter();
 
         subject->pop_back();
@@ -260,7 +253,6 @@ std::vector<double> Tester<T>::test_all()
     test_data.clear();
     double test_time = 0;
     this->test_count = 1;
-    startCounter();
 
     test_data.push_back(tpush_back(1));
     test_data.push_back(tpush_front(1));
@@ -270,9 +262,9 @@ std::vector<double> Tester<T>::test_all()
     test_data.push_back(tfind(-2));
     test_data.push_back(terase());
 
+
     for(auto d : test_data)
         test_time+=d;
-
     test_data.push_back(test_time);
 
     std::cout << "\n\n>>The full test took : " << test_time << "[ms]\n";
@@ -353,3 +345,5 @@ double Tester<T>::tfind(size_t key)
 }
 
 #endif
+
+//TODO: comment the code

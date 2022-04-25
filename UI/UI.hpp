@@ -21,13 +21,13 @@
 enum class MenuState
 {
     Main,
-    DStruct_create,
     DStruct_choice_add,
+    DStruct_choice_load,
     DStruct_choice_del,
     DStruct_choice_manip,
     DStruct_manip,
-    Manual_test,
-    Auto_test
+    DStruct_choice_test,
+    Manual_test
 };
 
 class UI
@@ -46,8 +46,10 @@ private:
     const std::vector<std::string> main_menu = {"Create data structure", "Delete data structure", "Test manually", "Perform auto-test", "Edit structures", "Load from file" , "Exit"};
     const std::vector<std::string> manip_opts = {"Push front", "Push back", "Add", "Pop back", "Pop front", "Erase", "Print","[Return to main menu]"};
     const std::vector<std::string> manip_opts_tree = {"Add", "Erase", "Print","[Return to main menu]"};
-    size_t cur_option;
-    size_t cur_max_option;
+    const std::vector<std::string> test_opts = {"Push front", "Push back", "Add", "Pop back", "Pop front", "Erase","Find","Print","[Return to main menu]"};
+    const std::vector<std::string> test_opts_tree = {"Add", "Erase","Find","Print","[Return to main menu]"};
+    short cur_option;
+    short cur_max_option;
     std::string opt_desc;
 
     std::vector<DataStruct<int>*> structs;

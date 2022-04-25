@@ -3,6 +3,7 @@
 //
 
 #include "UI.hpp"
+#include "../Utility/DataManager.tpp"
 
 #define ARROW_UP 72
 #define ARROW_DOWN 80
@@ -12,18 +13,26 @@
 
 
 UI::UI()
-: cur_option{0}, cur_max_option{menu_options.size()}
+: cur_option{0}, cur_max_option{static_cast<short>(menu_options.size())}
 {
  dMan = DataManager::getInstance("./Data");
 }
 
 void UI::menu_update(const char32_t& op)
 {
-    if(op == ARROW_UP && cur_option > 0)
+    if(op == ARROW_UP)
+    {
         cur_option--;
+        if (cur_option < 0)
+            cur_option = cur_max_option;
+    }
 
-    if(op == ARROW_DOWN && cur_option < cur_max_option)
+    if(op == ARROW_DOWN)
+    {
         cur_option++;
+        if (cur_option > cur_max_option)
+            cur_option = 0;
+    }
 
     if(op == ENTER_KEY)
         execute_option(cur_option);
@@ -199,9 +208,7 @@ void UI::execute_option(const size_t &num_of_opt)
                 case 1:
                     if(!structs.empty()){
                     header_update("Choose data structure to delete.");
-                    std::vector<std::string> temp = list_available();
-
-                    options_update(temp);
+                    options_update(list_available());
                     state = MenuState::DStruct_choice_del;
                     }
                     else
@@ -209,20 +216,31 @@ void UI::execute_option(const size_t &num_of_opt)
                     break;
                 case 2:
                     if(!structs.empty()){
+                        header_update("Choose data structure to test.");
+                        options_update(list_available());
+                        state = MenuState::DStruct_choice_test;
+                    }
+                    else
+                        header_update("There are no structs yet.");
+                    break;
+                case 3:
+                    execute_auto_test();
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 4:
+                    if(!structs.empty()){
                         header_update("Choose data structure to edit.");
-                        std::vector<std::string> temp = list_available();
-
-                        options_update(temp);
+                        options_update(list_available());
                         state = MenuState::DStruct_choice_manip;
                     }
                     else
                         header_update("There are no structs yet.");
                     break;
-
-                case 3:
-                    execute_auto_test();
-                    std::cout << "\nPress ENTER to continue...";
-                    std::cin.get();
+                case 5:
+                    header_update("Chose structure type to load into.");
+                    options_update({"Dynamic Array", "Doubly-linked List", "Binary Max Heap", "Red-Black Tree", "[Return to main menu]"});
+                    state = MenuState::DStruct_choice_load;
                     break;
                 default:
                     break;
@@ -330,6 +348,188 @@ void UI::execute_option(const size_t &num_of_opt)
                     break;
             }
     }
+    else if(this->state == MenuState::DStruct_choice_test)
+    {
+        if (num_of_opt == cur_max_option)
+        {
+            header_update("SDiZO_proj v1.0.0        by Adam Wysocki");
+            options_update(main_menu);
+            state = MenuState::Main;
+        } else
+        {
+            cur_struct = structs[cur_option];
+            tester.setSubject(this->cur_struct);
+            state = MenuState::Manual_test;
+            if (cur_struct != nullptr)
+                if (!dynamic_cast<BHeap<int> *>(cur_struct) && !dynamic_cast<RBTree<int> *>(cur_struct))
+                    options_update(test_opts);
+                else
+                    options_update(test_opts_tree);
+        }
+    }
+    else if(this->state == MenuState::Manual_test)
+    {
+        if(num_of_opt==cur_max_option)
+        {
+            header_update("SDiZO_proj v1.0.0        by Adam Wysocki");
+            options_update(main_menu);
+            state = MenuState::Main;
+        }
+        else if(!dynamic_cast<BHeap<int>*>(cur_struct) && !dynamic_cast<RBTree<int>*>(cur_struct))
+            switch(cur_option)
+            {
+                case 0:
+                    tester.tpush_front();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 1:
+                    tester.tpush_back();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 2:
+                    tester.tadd();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 3:
+                    tester.tpop_back();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 4:
+                    tester.tpop_front();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 5:
+                    tester.terase();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 6:
+                    try
+                    {
+                        double val;
+                        std::cout << "\n\n >> Provide key to search for :";
+                        std:: cin >> val;
+                        tester.tfind(val);
+                    }catch(std::invalid_argument &e)
+                    {
+                        std::cout << std::endl << e.what();
+                    }
+
+                    std::cout << "\nPress ENTER to continue...";
+                    fflush(stdin);
+                    std::cin.get();
+                    break;
+                case 7:
+                    print();
+                    break;
+                default:
+                    break;
+            }
+        else
+            switch(cur_option)
+            {
+                case 0:
+                    tester.tadd();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 1:
+                    tester.terase();
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 2:
+                    try
+                    {
+                        double val;
+                        if(!dynamic_cast<RBTree<int>*>(cur_struct))
+                            std::cout << "\n\n >> Provide key to search for :";
+                        else
+                            std::cout << "\n\n >> Provide value to search for :";
+                        std:: cin >> val;
+                        tester.tfind(val);
+                    }catch(std::invalid_argument &e)
+                    {
+                        std::cout << std::endl << e.what();
+                    }
+
+                    std::cout << "\nPress ENTER to continue...";
+                    std::cin.get();
+                    break;
+                case 3:
+                    print();
+                    break;
+                default:
+                    break;
+            }
+    }
+    else if (this->state == MenuState::DStruct_choice_load)
+    {
+        if (num_of_opt == cur_max_option)
+        {
+            header_update("SDiZO_proj v1.0.0        by Adam Wysocki");
+            options_update(main_menu);
+            state = MenuState::Main;
+        } else
+        {
+            std::string temp;
+            std::cout << "\n\n Provide the file name from /Data directory : ";
+            std::cin >> temp;
+
+            try
+            {
+
+
+                switch (cur_option)
+                {
+                    case 0:
+                        cur_struct = new DynamicArray<int>;
+                        *cur_struct = dMan->loadFromFile<int>(temp);
+                        break;
+                    case 1:
+                        cur_struct = new DLList<int>;
+                        *cur_struct = dMan->loadFromFile<int>(temp);
+                        break;
+                    case 2:
+                        cur_struct = new BHeap<int>;
+                        *cur_struct = dMan->loadFromFile<int>(temp);
+                        break;
+                    case 3:
+                        cur_struct = new RBTree<int>;
+                        *cur_struct = dMan->loadFromFile<int>(temp);
+                        break;
+                    default:
+                        break;
+                }
+                structs.push_back(cur_struct);
+                cur_struct = nullptr;
+
+
+                std::cout << "\nSuccessfully loaded from " + temp;
+            }
+            catch(ut::utilityException &e)
+            {
+                std::cout << std::endl << e.what();
+            }
+
+
+            std::cin.get();
+            std::cin.get();
+        }
+    }
 }
 
 void UI::add_struct(const unsigned int type)
@@ -386,7 +586,7 @@ void UI::execute_auto_test()
         tester.setSubject(subj);
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
-        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]));
+        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
     }
 
     delete subj;
@@ -397,7 +597,7 @@ void UI::execute_auto_test()
         tester.setSubject(subj);
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
-        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]));
+        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
     }
 
     delete subj;
@@ -408,7 +608,7 @@ void UI::execute_auto_test()
         tester.setSubject(subj);
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
-        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]));
+        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
     }
 
     delete subj;
@@ -419,7 +619,7 @@ void UI::execute_auto_test()
         tester.setSubject(subj);
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
-        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]));
+        tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
     }
 
     delete subj;

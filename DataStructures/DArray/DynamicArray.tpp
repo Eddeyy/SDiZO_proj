@@ -87,7 +87,7 @@ void DynamicArray<T>::add(T val, size_t index)
 template<typename T>
 void DynamicArray<T>::pop_back()
 {
-    if(this->num_of_elements>0)
+    if(this->num_of_elements)
     {
         this->num_of_elements--;
         T *temp = new T[this->num_of_elements];
@@ -105,7 +105,7 @@ void DynamicArray<T>::pop_back()
 template<typename T>
 void DynamicArray<T>::pop_front()
 {
-    if(this->num_of_elements>0)
+    if(this->num_of_elements)
     {
         T *temp = new T[this->num_of_elements - 1];
 
@@ -124,7 +124,7 @@ void DynamicArray<T>::pop_front()
 template<typename T>
 void DynamicArray<T>::erase(size_t index)
 {
-    if (index > this->num_of_elements)
+    if (index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     T *temp = new T[this->num_of_elements - 1];
@@ -169,19 +169,19 @@ void DynamicArray<T>::print()
 }
 
 template<typename T>
-const T &DynamicArray<T>::operator[](const int index) const
+const T &DynamicArray<T>::operator[](const size_t index) const
 {
-    if (index < 0 || index >= this->num_of_elements)
+    if (index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     return this->arr[index];
 }
 
 template<typename T>
-ArrayElement<T>& DynamicArray<T>::operator[](const int index)
+ArrayElement<T>& DynamicArray<T>::operator[](const size_t index)
 {
     ArrayElement<T> temp;
-    if (index < 0 || index >= this->num_of_elements)
+    if (index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     temp.setVal(this->arr[index]);
@@ -285,3 +285,5 @@ const Element<T> *DynamicArray<T>::rfind(const T &key)
 }
 
 #endif
+
+//TODO: comment the code

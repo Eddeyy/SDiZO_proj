@@ -60,24 +60,28 @@ void DLList<T>::push_front(T val)
 template<typename T>
 void DLList<T>::add(T val, size_t index)
 {
-    //TODO: Coś mi tu jebie i nie chce mi się naprawiać teraz, jest 4:12 )))))))))
-    if (index > (this->num_of_elements))
-        if(this->num_of_elements != 0)
-            throw std::out_of_range("Index out of range!");
+    if (index > this->num_of_elements)
+        throw std::out_of_range("Index out of range!");
 
     if(index == 0)
     {
         auto prevHead = head;
         this->head = new ListElement<T>(val, nullptr , this->head);
-        if(prevHead != nullptr)
+
+        if(this->num_of_elements)
             prevHead->setPrev(this->head);
+        else
+            this->tail = head;
     }
     else if(index == this->num_of_elements)
     {
         auto prevTail = tail;
         this->tail = new ListElement<T>(val, tail, nullptr);
-        if(prevTail !=nullptr)
+
+        if(this->num_of_elements)
             prevTail->setNext(this->tail);
+        else
+            this->head = tail;
     }
     else
     {
@@ -86,13 +90,14 @@ void DLList<T>::add(T val, size_t index)
         prev->setNext(new ListElement<T>(val, prev, next));
         next->setPrev(prev->getNext());
     }
+
     this->num_of_elements++;
 }
 
 template<typename T>
 void DLList<T>::pop_back()
 {
-    if(head == nullptr)
+    if(!this->num_of_elements)
     {
         throw std::invalid_argument("The list appears to be empty!");
     }
@@ -110,19 +115,20 @@ void DLList<T>::pop_back()
         tail=nullptr;
         head=nullptr;
     }
+
     this->num_of_elements--;
 }
 
 template<typename T>
 void DLList<T>::pop_front()
 {
-    if(head == nullptr)
+    if(!this->num_of_elements)
     {
         throw std::invalid_argument("The list appears to be empty!");
     }
     if(this->num_of_elements>1)
     {
-        auto prev = &(*this)[1];
+        auto prev = head->getNext();
         prev->setPrev(nullptr);
         delete head;
         head = prev;
@@ -133,13 +139,14 @@ void DLList<T>::pop_front()
         head = nullptr;
         tail = nullptr;
     }
+
     this->num_of_elements--;
 }
 
 template<typename T>
 void DLList<T>::erase(size_t index)
 {
-    if(head == nullptr)
+    if(!this->num_of_elements)
     {
         throw std::invalid_argument("The list appears to be empty!");
     }
@@ -149,12 +156,12 @@ void DLList<T>::erase(size_t index)
 
     delete &(*this)[index];
 
-    if(prev!=nullptr)
+    if(prev)
         prev->setNext(next);
     else
         head = next;
 
-    if(next!=nullptr)
+    if(next)
         next->setPrev(prev);
     else
         tail = prev;
@@ -183,39 +190,42 @@ template<typename T>
 void DLList<T>::print()
 {
     ListElement<T>* curEl = head;
-    std::string result = "[ ";
+    std::string result(50, '=');
+    result.append(1,'\n');
 
     std::cout << "Elements in List:\n";
-    while(curEl!=nullptr)
+    while(curEl)
     {
 
-        if(curEl->getPrev()!=nullptr)
+        if(curEl->getPrev())
             result += "<" + std::to_string(curEl->getPrev()->getVal()) + ">";
         else
             result += "<NULL>";
         result += " <<-- <" + std::to_string(curEl->getVal()) + "> -->> ";
-        if(curEl->getNext()!= nullptr)
+        if(curEl->getNext())
             result += "<" + std::to_string(curEl->getNext()->getVal()) + ">";
         else
             result +="<NULL>";
-        if(curEl->getNext()!=nullptr)
+        if(curEl->getNext())
             result += ",\n";
         curEl = curEl->getNext();
     }
-    result += " ]\n";
+    result.append(1,'\n');
+    result.append(50,'=');
+    result += "\n\n";
     std::cout << result;
 }
 
 template<typename T>
-const T &DLList<T>::operator[](int index) const
+const T &DLList<T>::operator[](const size_t index) const
 {
     ListElement<T>* elem;
-    if(head == nullptr)
+    if(this->num_of_elements)
     {
         throw std::invalid_argument("The list appears to be empty!");
     }
 
-    if (index < -1 || index > this->num_of_elements+1)
+    if (index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     if(index < (this->num_of_elements)/2)
@@ -238,13 +248,14 @@ const T &DLList<T>::operator[](int index) const
 }
 
 template<typename T>
-ListElement<T> &DLList<T>::operator[](int index)
+ListElement<T> &DLList<T>::operator[](const size_t index)
 {
     ListElement<T>* elem;
-    if(head == nullptr)
+
+    if(!this->num_of_elements)
         throw std::invalid_argument("The list appears to be empty!");
 
-    if (index < 0 || index >= this->num_of_elements)
+    if (index >= this->num_of_elements)
         throw std::out_of_range("Index out of range!");
 
     if(index < (this->num_of_elements)/2)
@@ -283,15 +294,13 @@ DLList<T> &DLList<T>::operator=(const DLList &origin)
     if(this == &origin)
         return *this;
 
-    for(int i = this->num_of_elements; i>0; i--)
-    {
-        this->pop_back();
-    }
+    this->clear();
 
     for(int i = 0; i < origin.num_of_elements; i++)
     {
         this->push_back(origin[i]);
     }
+
     return *this;
 }
 
@@ -354,3 +363,5 @@ const Element<T>* DLList<T>::rfind(const T& key)
 
 
 #endif
+
+//TODO: comment the code
