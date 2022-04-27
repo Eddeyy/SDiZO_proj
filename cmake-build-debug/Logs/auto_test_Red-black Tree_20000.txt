@@ -1,0 +1,8 @@
+>>>Test data for Red-black Tree<<<
+Number of elements : 20000
+Number of tests performed : 100
+==========================================
+add        : 0.002039[ms]
+find       : 0.000553[ms]
+erase      : 0.000452[ms]
+whole test : 0.003727[ms]

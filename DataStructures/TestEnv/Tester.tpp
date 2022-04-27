@@ -98,6 +98,32 @@ void Tester<T>::dumpToFile(const std::string &fileName)
 
 }
 
+template<typename T>
+void Tester<T>::dumpToFile_csv(const std::string &fileName)
+{
+        std::fstream file;
+        std::string ops[8] = {"push_back", "push_front", "add", "find", "pop_back", "pop_front", "erase", "whole test"};
+
+        file.open("./Logs/" + fileName, std::fstream::in | std::fstream::out | std::fstream::app);
+        if(!file.good())
+            throw ut::utilityException("Could not open Logs/" + fileName);
+
+        file << "Op name;";
+        file << this->subject->getName() + " length;";
+        file << "Time[ms];\n";
+
+        for(int i = 0; i < test_data.size(); i++)
+        {
+            file << ops[i] << ";";
+            file << this->subject->length();
+            file << ";";
+            file << test_data[i];
+            file << ";\n";
+        }
+
+        file.close();
+}
+
 
 template<typename T>
 void Tester<T>::setSubject(DataStruct<T> *structure)
@@ -259,7 +285,7 @@ std::vector<double> Tester<T>::test_all()
     test_data.push_back(tadd(1));
     test_data.push_back(tpop_back());
     test_data.push_back(tpop_front());
-    test_data.push_back(tfind(-2));
+    test_data.push_back(tfind(INT_MAX));
     test_data.push_back(terase());
 
 
@@ -342,6 +368,22 @@ double Tester<T>::tfind(size_t key)
     throw
             ut::utilityException("\n\nCould not perform time test : no subject instance provided!\n");
 
+}
+
+template<typename T>
+void Tester<T>::clear_csvlog(const std::string &fileName)
+{
+    if(ut::file_exists(fileName, "./Logs/"))
+    {
+        std::fstream file;
+
+        file.open("./Logs/" + fileName, std::fstream::out | std::fstream::trunc);
+        if(!file.good())
+            throw ut::utilityException("Could not open Logs/" + fileName);
+        file.close();
+    }
+
+    std::cout << "Cleared log file " << fileName << ".\n";
 }
 
 #endif

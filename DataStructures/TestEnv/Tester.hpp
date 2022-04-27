@@ -7,6 +7,7 @@
 #include "../DataStruct.hpp"
 #include "../../DataStructures/DArray/DynamicArray.hpp"
 #include "../../DataStructures/DList/DLList.hpp"
+#include "../../DataStructures/BHeap/BHeap.hpp"
 #include "../../DataStructures/RBTree/RBTree.hpp"
 #include "../../Utility/DataManager.hpp"
 #include "../../Utility/Utilities.hpp"
@@ -57,6 +58,8 @@ public:
     void clear();
 
     void dumpToFile(const std::string &fileName);
+    void dumpToFile_csv(const std::string &fileName);
+    void clear_csvlog(const std::string &fileName);
 
 };
 #endif //SDIZO_PROJ_TESTER_HPP

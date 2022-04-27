@@ -1,0 +1,8 @@
+>>>Test data for Binary Max Heap<<<
+Number of elements : 5000
+Number of tests performed : 100
+==========================================
+add        : 0.018964[ms]
+find       : 0.018258[ms]
+erase      : 0.022382[ms]
+whole test : 0.116905[ms]

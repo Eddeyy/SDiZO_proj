@@ -1,0 +1,12 @@
+>>>Test data for Dynamic Array<<<
+Number of elements : 5000
+Number of tests performed : 100
+==========================================
+push_back  : 0.032353[ms]
+push_front : 0.025443[ms]
+add        : 0.023997[ms]
+find       : 0.02978[ms]
+pop_back   : 0.028068[ms]
+pop_front  : 0.011944[ms]
+erase      : 0.023411[ms]
+whole test : 0.174996[ms]

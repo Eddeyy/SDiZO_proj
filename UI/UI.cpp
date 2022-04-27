@@ -580,6 +580,12 @@ void UI::execute_auto_test()
 
     int sizes[5] = {1000, 2000, 5000, 10000, 20000};
 
+
+    if(ut::file_exists("AUTO_LOG.txt", "./Logs/"))
+    {
+        tester.clear_csvlog("AUTO_LOG.txt");
+    }
+
     subj = new DynamicArray<int>;
     for(int i = 0; i<5; i++)
     {
@@ -587,6 +593,7 @@ void UI::execute_auto_test()
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
         tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
+        tester.dumpToFile_csv("AUTO_LOG.txt");
     }
 
     delete subj;
@@ -598,6 +605,7 @@ void UI::execute_auto_test()
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
         tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
+        tester.dumpToFile_csv("AUTO_LOG.txt");
     }
 
     delete subj;
@@ -609,6 +617,7 @@ void UI::execute_auto_test()
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
         tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
+        tester.dumpToFile_csv("AUTO_LOG.txt");
     }
 
     delete subj;
@@ -620,6 +629,7 @@ void UI::execute_auto_test()
         *subj = tester.genRand(sizes[i]);
         tester.test_avg(100);
         tester.dumpToFile("auto_test_" + subj->getName() + "_" + std::to_string(sizes[i]) + ".txt");
+        tester.dumpToFile_csv("AUTO_LOG.txt");
     }
 
     delete subj;

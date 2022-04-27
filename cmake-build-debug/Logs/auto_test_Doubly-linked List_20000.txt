@@ -1,0 +1,12 @@
+>>>Test data for Doubly-linked List<<<
+Number of elements : 20000
+Number of tests performed : 100
+==========================================
+push_back  : 0.000144[ms]
+push_front : 0.001137[ms]
+add        : 0.304114[ms]
+find       : 0.000887[ms]
+pop_back   : 0.001047[ms]
+pop_front  : 0.112324[ms]
+erase      : 0.288793[ms]
+whole test : 0.708446[ms]
