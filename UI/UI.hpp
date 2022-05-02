@@ -6,6 +6,8 @@
 #define SDIZO_PROJ_UI_HPP
 #include <iostream>
 #include "../DataStructures/DataStruct.hpp"
+#include "../DataStructures/Element.hpp"
+#include "../DataStructures/Element.tpp"
 #include "../DataStructures/DArray/ArrayElement.hpp"
 #include "../DataStructures/DArray/ArrayElement.tpp"
 #include "../DataStructures/BHeap/BHeap.hpp"

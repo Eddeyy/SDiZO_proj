@@ -39,13 +39,16 @@ public:
     size_t left(size_t index);
     size_t right(size_t index);
 
+    T getFirst() override;
+    T getLast() override;
 
-    const ArrayElement<T>* find(const T& key) override;
+    ArrayElement<T> * find(const T& key) override;
     const Element<T>* rfind(const T& key) override;
     const T* kfind(const T& key) ;
     const T* krfind(const T& key) ;
 
-    const T& operator[] (int index) const;
+    const T& operator[] (const size_t index) const;
+    ArrayElement<T>& operator[](const size_t index);
     BHeap& operator= (const BHeap& origin);
     BHeap& operator= (const std::vector<T>& origin) override;
 

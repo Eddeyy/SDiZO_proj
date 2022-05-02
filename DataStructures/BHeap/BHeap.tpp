@@ -68,7 +68,7 @@ void BHeap<T>::erase(size_t index)
         root[index] = INT_MAX;
     else
         throw ut::utilityException("Erase not implemented correctly for that type in BHeap.tpp");
-    while (index != 0 && root[parent(index)]>root[index])
+    while (index != 0 && root[parent(index)]<root[index])
     {
         swap(index, parent(index));
         index = parent(index);
@@ -204,7 +204,7 @@ const T *BHeap<T>::krfind(const T &key)
 }
 
 template<typename T>
-const T &BHeap<T>::operator[](int index) const
+const T &BHeap<T>::operator[](const size_t index) const
 {
     if(root == nullptr)
         throw std::invalid_argument("The heap appears to be empty!\n");
@@ -213,6 +213,17 @@ const T &BHeap<T>::operator[](int index) const
         return root[index];
     }
     throw std::out_of_range("Index out of range!\n");
+}
+
+template<typename T>
+ArrayElement<T>& BHeap<T>::operator[](const size_t index)
+{
+    ArrayElement<T> temp;
+    if (index >= this->num_of_elements)
+        throw std::out_of_range("Index out of range!");
+
+    temp.setVal(this->root[index]);
+    return temp;
 }
 
 template<typename T>
@@ -287,7 +298,7 @@ size_t BHeap<T>::right(size_t index)
 }
 
 template<typename T>
-const ArrayElement<T>* BHeap<T>::find(const T &key)
+ArrayElement<T> * BHeap<T>::find(const T &key)
 {
     std::shared_ptr<ArrayElement<T>> temp = std::make_shared<ArrayElement<T>>();
     for(int i = 0; i < this->num_of_elements; i++)
@@ -329,6 +340,18 @@ void BHeap<T>::buildHeap()
 {
     for(int i = (this->num_of_elements-1)/2; i > -1; i--)
         heapifyMax(i);
+}
+
+template<typename T>
+T BHeap<T>::getFirst()
+{
+    return *root;
+}
+
+template<typename T>
+T BHeap<T>::getLast()
+{
+    return *(root + this->num_of_elements-1);
 }
 
 #endif

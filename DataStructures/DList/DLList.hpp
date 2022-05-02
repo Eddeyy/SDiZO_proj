@@ -29,8 +29,12 @@ public:
     void print() override;
     void clear() override;
 
-    const Element<T> *find(const T& key) override;
+    ListElement<T> * find(const T& key) override;
     const Element<T> *rfind(const T& key) override;
+
+    T getFirst() override;
+    T getLast() override;
+
 
     const T& operator[] (const size_t index) const;
     ListElement<T>& operator[] (const size_t index);

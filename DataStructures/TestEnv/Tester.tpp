@@ -207,12 +207,13 @@ double Tester<T>::tpop_back()
 
     if(subject != nullptr)
     {
+        T last = subject->getLast();
         startCounter();
 
         subject->pop_back();
 
         double time = getCounter();
-        subject->push_back(1);
+        subject->push_back(last);
         std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of pop_back(): " << time << "[ms]\n";
         return time;
     }
@@ -227,12 +228,13 @@ double Tester<T>::tpop_front()
 
     if(subject != nullptr)
     {
+        T first = subject->getFirst();
         startCounter();
 
         subject->pop_front();
 
         double time = getCounter();
-        subject->push_front(1);
+        subject->push_front(first);
         std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of pop_front(): " << time << "[ms]\n";
         return time;
     }
@@ -246,13 +248,17 @@ double Tester<T>::terase(size_t index)
 {
     if(subject != nullptr)
     {
+        T first = subject->getFirst();
+
         if(index == -2)
             index = subject->length()/2;
         if(dynamic_cast<RBTree<T>*>(subject))
             index = 1;
 
         if(dynamic_cast<RBTree<T>*>(subject))
-            subject->erase(static_cast<RBTree<T>*>(subject)->root->getVal());
+        {
+            subject->erase(static_cast<RBTree<T> *>(subject)->root->getVal());
+        }
         else
             subject->pop_front();
         subject->add(-2,index);
@@ -264,7 +270,7 @@ double Tester<T>::terase(size_t index)
             subject->erase(index);
         double time = getCounter();
 
-        subject->add(1,index);
+        subject->add(first, 0);
         std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of erase(): " << time << "[ms]\n";
         return time;
     }
@@ -285,6 +291,15 @@ std::vector<double> Tester<T>::test_all()
     test_data.push_back(tadd(1));
     test_data.push_back(tpop_back());
     test_data.push_back(tpop_front());
+
+
+    if(dynamic_cast<RBTree<T>*>(subject))
+        subject->erase(static_cast<RBTree<T>*>(subject)->root->getVal());
+    else
+        subject->pop_front();
+
+    subject->add(INT_MAX,subject->length()/2);
+
     test_data.push_back(tfind(INT_MAX));
     test_data.push_back(terase());
 
@@ -351,18 +366,19 @@ double Tester<T>::tfind(size_t key)
 {
     if(subject != nullptr)
     {
-        if(dynamic_cast<RBTree<T>*>(subject))
-            subject->erase(static_cast<RBTree<T>*>(subject)->root->getVal());
-        else
-            subject->pop_front();
-
-        subject->add(key,subject->length()/2);
+        Element<T>* temp = nullptr;
 
         startCounter();
-        subject->find(key);
+        temp = subject->find(key);
         double time = getCounter();
 
         std::cout << subject->length() << " Element " << subject->getName() <<"|Elapsed time since call of find(): " << time << "[ms]\n";
+
+        if(temp!=nullptr)
+            temp->print();
+        else
+            throw std::invalid_argument("Element with said parameters not found in " + subject->getName() + ".");
+
         return time;
     }
     throw

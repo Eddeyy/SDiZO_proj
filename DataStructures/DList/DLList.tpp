@@ -330,7 +330,7 @@ DLList<T> &DLList<T>::operator=(const std::vector<T> &array)
     return *this;
 }
 template<typename T>
-const Element<T>* DLList<T>::find(const T& key)
+ListElement<T> * DLList<T>::find(const T& key)
 {
     ListElement<T>* temp = this->head;
     for(int i = 0; i<this->num_of_elements; i++)
@@ -359,6 +359,18 @@ const Element<T>* DLList<T>::rfind(const T& key)
         temp = temp->getPrev();
     }
     throw std::invalid_argument("No such key in list.");
+}
+
+template<typename T>
+T DLList<T>::getFirst()
+{
+    return head->getVal();
+}
+
+template<typename T>
+T DLList<T>::getLast()
+{
+    return tail->getVal();
 }
 
 

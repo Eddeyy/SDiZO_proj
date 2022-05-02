@@ -47,7 +47,11 @@ public:
 
     void clear() override;
 
+    T getFirst() override;
+    T getLast() override;
+
     RBTree& operator= (const std::vector<T>&);
+
 
     friend class Tester<int>;
 };

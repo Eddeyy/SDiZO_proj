@@ -158,7 +158,7 @@ Node<T>* RBTree<T>::find(const T& key)
         }
     } while (helper != this->guard);
 
-    return nullptr;
+    throw std::invalid_argument("No such key in Red-Black Tree.");
 }
 
 template<typename T>
@@ -595,6 +595,19 @@ void RBTree<T>::clear()
     while(this->num_of_elements)
         erase(this->root->getVal());
 }
+
+template<typename T>
+T RBTree<T>::getFirst()
+{
+    return root->getVal();
+}
+
+template<typename T>
+T RBTree<T>::getLast()
+{
+    return root->getVal();
+}
+
 
 #endif
 

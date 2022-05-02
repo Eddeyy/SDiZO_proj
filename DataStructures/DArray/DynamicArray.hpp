@@ -26,7 +26,7 @@ public:
     void erase(size_t index) override;
     void clear() override;
 
-    const Element<T> *find(const T& key) override;
+    ArrayElement<T> * find(const T& key) override;
     const Element<T> *rfind(const T& key) override;
 
     void print() override;
@@ -34,6 +34,8 @@ public:
     const T& operator[] (const size_t index) const;
     ArrayElement<T>& operator[] (const size_t index);
 
+    T getFirst() override;
+    T getLast() override;
 
     DynamicArray(const DynamicArray& origin);
     DynamicArray& operator= (const DynamicArray& origin);

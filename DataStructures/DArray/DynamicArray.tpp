@@ -258,7 +258,7 @@ DynamicArray<T> &DynamicArray<T>::operator= (const std::vector<T> &array)
 }
 
 template<typename T>
-const Element<T> *DynamicArray<T>::find(const T &key)
+ArrayElement<T> * DynamicArray<T>::find(const T &key)
 {
     std::shared_ptr<ArrayElement<T>> temp = std::make_shared<ArrayElement<T>>();
     for(int i = 0; i < this->num_of_elements; i++)
@@ -282,6 +282,18 @@ const Element<T> *DynamicArray<T>::rfind(const T &key)
         }
 
     throw std::invalid_argument("No such key in array.");
+}
+
+template<typename T>
+T DynamicArray<T>::getFirst()
+{
+    return *arr;
+}
+
+template<typename T>
+T DynamicArray<T>::getLast()
+{
+    return *(arr + this->num_of_elements-1);
 }
 
 #endif

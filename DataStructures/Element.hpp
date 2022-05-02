@@ -2,8 +2,8 @@
 // Created by thero on 15.04.2022.
 //
 
-#ifndef SDIZO_PROJ_ELEMENT_H
-#define SDIZO_PROJ_ELEMENT_H
+#ifndef SDIZO_PROJ_ELEMENT_HPP
+#define SDIZO_PROJ_ELEMENT_HPP
 #include <iostream>
 
 template<typename T>
@@ -40,6 +40,8 @@ public:
         return this->value;
     };
 
+    virtual void print();
+
     T value;
 
     void setVal(const T& val)
@@ -50,4 +52,4 @@ public:
 
 
 
-#endif //SDIZO_PROJ_ELEMENT_H
+#endif //SDIZO_PROJ_ELEMENT_TPP

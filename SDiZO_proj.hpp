@@ -10,6 +10,7 @@
 
 #include "DataStructures/DataStruct.hpp"
 #include "DataStructures/Element.hpp"
+#include "DataStructures/Element.tpp"
 #include "DataStructures/DArray/DynamicArray.hpp"
 #include "DataStructures/DArray/DynamicArray.tpp"
 #include "DataStructures/DArray/ArrayElement.hpp"

@@ -28,4 +28,5 @@ add_executable(
         DataStructures/RBTree/RBTree.tpp
         DataStructures/RBTree/RBTree.hpp
         DataStructures/RBTree/Node.tpp
-        DataStructures/RBTree/Node.hpp)
+        DataStructures/RBTree/Node.hpp
+        DataStructures/Element.tpp)

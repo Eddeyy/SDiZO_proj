@@ -25,6 +25,7 @@ protected:
 
     std::default_random_engine e;
     DataStruct<T>* subject;
+    DataStruct<T>* test_copy;
     std::vector<double> test_data;
     size_t test_count;
 

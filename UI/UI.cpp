@@ -467,6 +467,7 @@ void UI::execute_option(const size_t &num_of_opt)
                     }
 
                     std::cout << "\nPress ENTER to continue...";
+                    fflush(stdin);
                     std::cin.get();
                     break;
                 case 3:
@@ -731,7 +732,7 @@ void UI::erase()
         try
         {
             size_t index;
-            if(!dynamic_cast<BHeap<int>*>(cur_struct) && !dynamic_cast<RBTree<int>*>(cur_struct))
+            if(!dynamic_cast<RBTree<int>*>(cur_struct))
             {
                 std::cout << "\n\n >>Specify the index : ";
                 std::cin >> index;
